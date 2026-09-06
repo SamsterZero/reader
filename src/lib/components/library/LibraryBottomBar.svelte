@@ -1,17 +1,19 @@
 <script lang="ts">
-	import { Bookmark, Library, User } from 'lucide-svelte';
+	import { Bookmark, Library, ShoppingBag, User } from 'lucide-svelte';
 	import { goto } from '$app/navigation';
 
 	let {
 		active,
 		annotationCount = 0,
 		onOpenLibrary = () => goto('/'),
+		onOpenStore = () => goto('/store'),
 		onOpenAnnotations = () => goto('/annotations'),
 		onOpenSettings = () => goto('/settings')
 	}: {
-		active: 'library' | 'annotations' | 'settings' | 'account';
+		active: 'library' | 'store' | 'annotations' | 'settings' | 'account';
 		annotationCount?: number;
 		onOpenLibrary?: () => void;
+		onOpenStore?: () => void;
 		onOpenAnnotations?: () => void;
 		onOpenSettings?: () => void;
 	} = $props();
@@ -24,7 +26,7 @@
 	<div class="mx-auto flex max-w-md items-stretch justify-around">
 		<button
 			type="button"
-			class="flex min-w-24 flex-col items-center gap-1 rounded-md px-4 py-2 text-xs font-medium hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2"
+			class="flex min-w-16 flex-col items-center gap-1 rounded-md px-3 py-2 text-xs font-medium hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2"
 			class:text-primary={active === 'library'}
 			class:text-muted-foreground={active !== 'library'}
 			onclick={onOpenLibrary}
@@ -36,7 +38,19 @@
 
 		<button
 			type="button"
-			class="flex min-w-24 flex-col items-center gap-1 rounded-md px-4 py-2 text-xs font-medium hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2"
+			class="flex min-w-16 flex-col items-center gap-1 rounded-md px-3 py-2 text-xs font-medium hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2"
+			class:text-primary={active === 'store'}
+			class:text-muted-foreground={active !== 'store'}
+			onclick={onOpenStore}
+			aria-current={active === 'store' ? 'page' : undefined}
+		>
+			<ShoppingBag class="h-5 w-5" aria-hidden="true" />
+			Store
+		</button>
+
+		<button
+			type="button"
+			class="flex min-w-16 flex-col items-center gap-1 rounded-md px-3 py-2 text-xs font-medium hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2"
 			class:text-primary={active === 'annotations'}
 			class:text-muted-foreground={active !== 'annotations'}
 			onclick={onOpenAnnotations}
@@ -59,7 +73,7 @@
 
 		<button
 			type="button"
-			class="flex min-w-24 flex-col items-center gap-1 rounded-md px-4 py-2 text-xs font-medium hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2"
+			class="flex min-w-16 flex-col items-center gap-1 rounded-md px-3 py-2 text-xs font-medium hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2"
 			class:text-primary={active === 'settings' || active === 'account'}
 			class:text-muted-foreground={active !== 'settings' && active !== 'account'}
 			onclick={onOpenSettings}
