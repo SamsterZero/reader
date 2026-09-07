@@ -422,6 +422,7 @@
 					{/if}
 				</div>
 			</div>
+		{/if}
 	</main>
 
 	<LibraryBottomBar active="store" />
