@@ -17,6 +17,7 @@
 	import TopBar from '$lib/components/library/TopBar.svelte';
 	import LibraryBottomBar from '$lib/components/library/LibraryBottomBar.svelte';
 	import { Button } from '$lib/components/ui/button';
+	import * as Tabs from '$lib/components/ui/tabs';
 	import {
 		fetchCatalogTitleBySlug,
 		getTitleDisplayPrice,
@@ -227,7 +228,7 @@
 				</div>
 			</div>
 		{:else if titleDetail}
-			<div class="space-y-10">
+			<div class="space-y-6">
 				<!-- Top Hero: Borderless Cover Artwork + Title, Subtitle, Author, Description & Price Action -->
 				<div class="flex flex-col items-center gap-6 sm:flex-row sm:items-start md:gap-8 lg:gap-10">
 					<!-- Cover Artwork -->
@@ -313,155 +314,191 @@
 					</div>
 				</div>
 
-				<!-- Borderless Information Grid: 3-Column Layout on Ultrawide/Desktop, 2-Column on Tablet -->
-				<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 pt-4">
-					<!-- Section 1: Book Specifications -->
-					<div class="space-y-4">
-						<h2 class="flex items-center gap-2 text-lg font-bold text-foreground">
-							<BookOpen class="h-5 w-5 text-primary" />
-							Specifications
-						</h2>
+				<!-- Tabbed Details Section: Compact High-Contrast Tabs -->
+				<div>
+					<Tabs.Root value="specifications" class="w-full space-y-3">
+						<Tabs.List class="flex w-full sm:w-fit items-center justify-start gap-2 overflow-x-auto no-scrollbar h-auto bg-transparent p-1">
+							<Tabs.Trigger
+								value="specifications"
+								class="group inline-flex shrink-0 whitespace-nowrap items-center gap-2 rounded-full px-4 py-2.5 sm:py-3 text-xs font-semibold sm:text-sm bg-muted/70 text-muted-foreground hover:bg-muted hover:text-foreground transition-all data-active:bg-[#0D5C63] dark:data-active:bg-[#14838f] data-active:text-white dark:data-active:text-white data-active:shadow-sm"
+							>
+								<BookOpen class="h-4 w-4 shrink-0" />
+								<span>Specifications</span>
+							</Tabs.Trigger>
+							<Tabs.Trigger
+								value="editions"
+								class="group inline-flex shrink-0 whitespace-nowrap items-center gap-2 rounded-full px-4 py-2.5 sm:py-3 text-xs font-semibold sm:text-sm bg-muted/70 text-muted-foreground hover:bg-muted hover:text-foreground transition-all data-active:bg-[#0D5C63] dark:data-active:bg-[#14838f] data-active:text-white dark:data-active:text-white data-active:shadow-sm"
+							>
+								<Tag class="h-4 w-4 shrink-0" />
+								<span>Editions</span>
+								{#if titleDetail.editions?.length}
+									<span
+										class="ml-1 rounded-full px-2 py-0.5 text-[10px] font-bold bg-primary/15 text-primary group-data-[state=active]:bg-white/20 group-data-[state=active]:text-white dark:group-data-[state=active]:bg-white/25 dark:group-data-[state=active]:text-white"
+									>
+										{titleDetail.editions.length}
+									</span>
+								{/if}
+							</Tabs.Trigger>
+							<Tabs.Trigger
+								value="contributors"
+								class="group inline-flex shrink-0 whitespace-nowrap items-center gap-2 rounded-full px-4 py-2.5 sm:py-3 text-xs font-semibold sm:text-sm bg-muted/70 text-muted-foreground hover:bg-muted hover:text-foreground transition-all data-active:bg-[#0D5C63] dark:data-active:bg-[#14838f] data-active:text-white dark:data-active:text-white data-active:shadow-sm"
+							>
+								<User class="h-4 w-4 shrink-0" />
+								<span>Contributors</span>
+								{#if titleDetail.contributors?.length}
+									<span
+										class="ml-1 rounded-full px-2 py-0.5 text-[10px] font-bold bg-primary/15 text-primary group-data-[state=active]:bg-white/20 group-data-[state=active]:text-white dark:group-data-[state=active]:bg-white/25 dark:group-data-[state=active]:text-white"
+									>
+										{titleDetail.contributors.length}
+									</span>
+								{/if}
+							</Tabs.Trigger>
+						</Tabs.List>
 
-						<div class="grid grid-cols-2 gap-4 text-sm">
-							<div class="space-y-0.5">
-								<span class="text-xs font-medium text-muted-foreground">Language</span>
-								<p class="font-semibold text-foreground">
-									{titleDetail.language ? titleDetail.language.toUpperCase() : 'N/A'}
-								</p>
+						<!-- Tab 1: Specifications (Borderless Grid) -->
+						<Tabs.Content value="specifications" class="pt-1">
+							<div class="grid grid-cols-2 gap-x-8 gap-y-4 text-sm sm:grid-cols-3 md:grid-cols-4 max-w-4xl">
+								<div class="space-y-1">
+									<span class="text-xs font-medium text-muted-foreground">Language</span>
+									<p class="font-semibold text-foreground">
+										{titleDetail.language ? titleDetail.language.toUpperCase() : 'N/A'}
+									</p>
+								</div>
+
+								<div class="space-y-1">
+									<span class="text-xs font-medium text-muted-foreground">Format</span>
+									<p class="font-semibold text-foreground">
+										{titleDetail.editions?.[0]?.format || 'Digital EPUB'}
+									</p>
+								</div>
+
+								<div class="space-y-1">
+									<span class="text-xs font-medium text-muted-foreground">DRM Protection</span>
+									<p class="font-semibold text-emerald-600 dark:text-emerald-400">DRM-Free</p>
+								</div>
+
+								<div class="space-y-1">
+									<span class="text-xs font-medium text-muted-foreground">Published</span>
+									<p class="font-semibold text-foreground">
+										{titleDetail.editions?.[0]?.publishedDate || 'N/A'}
+									</p>
+								</div>
+
+								<div class="space-y-1 col-span-2 sm:col-span-1">
+									<span class="text-xs font-medium text-muted-foreground">ISBN</span>
+									<p class="font-mono font-semibold text-foreground">
+										{titleDetail.editions?.[0]?.isbn || 'N/A'}
+									</p>
+								</div>
+
+								<div class="space-y-1 col-span-2 sm:col-span-2">
+									<span class="text-xs font-medium text-muted-foreground">Delivery & Access</span>
+									<p class="text-xs text-foreground">
+										Instant PWA Reader Sync · Read Offline Anytime
+									</p>
+								</div>
 							</div>
+						</Tabs.Content>
 
-							<div class="space-y-0.5">
-								<span class="text-xs font-medium text-muted-foreground">Format</span>
-								<p class="font-semibold text-foreground">
-									{titleDetail.editions?.[0]?.format || 'Digital EPUB'}
-								</p>
-							</div>
-
-							<div class="space-y-0.5">
-								<span class="text-xs font-medium text-muted-foreground">DRM Protection</span>
-								<p class="font-semibold text-emerald-600 dark:text-emerald-400">DRM-Free</p>
-							</div>
-
-							<div class="space-y-0.5">
-								<span class="text-xs font-medium text-muted-foreground">Published</span>
-								<p class="font-semibold text-foreground">
-									{titleDetail.editions?.[0]?.publishedDate || 'N/A'}
-								</p>
-							</div>
-
-							<div class="space-y-0.5 col-span-2">
-								<span class="text-xs font-medium text-muted-foreground">ISBN</span>
-								<p class="font-mono font-semibold text-foreground">
-									{titleDetail.editions?.[0]?.isbn || 'N/A'}
-								</p>
-							</div>
-
-							<div class="space-y-0.5 col-span-2">
-								<span class="text-xs font-medium text-muted-foreground">Delivery & Access</span>
-								<p class="text-xs text-foreground">
-									Instant PWA Reader Sync · Read Offline Anytime
-								</p>
-							</div>
-						</div>
-					</div>
-
-					<!-- Section 2: Available Editions -->
-					{#if titleDetail.editions && titleDetail.editions.length > 0}
-						<div class="space-y-4">
-							<h2 class="flex items-center gap-2 text-lg font-bold text-foreground">
-								<Tag class="h-5 w-5 text-primary" />
-								Available Editions ({titleDetail.editions.length})
-							</h2>
-
-							<div class="space-y-4">
-								{#each titleDetail.editions as ed (ed.id)}
-									<div class="space-y-2">
-										<div class="flex items-center justify-between">
-											<span class="font-bold text-foreground">{ed.format}</span>
-											<span
-												class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary"
-											>
-												Edition #{ed.editionNumber}
-											</span>
-										</div>
-
-										{#if ed.publishedDate}
-											<p class="flex items-center gap-1.5 text-xs text-muted-foreground">
-												<Calendar class="h-3.5 w-3.5 text-muted-foreground/70" />
-												Published {ed.publishedDate}
-											</p>
-										{/if}
-
-										{#if ed.isbn}
-											<p class="font-mono text-xs text-muted-foreground/70">
-												ISBN {ed.isbn}
-											</p>
-										{/if}
-
-										<div class="flex items-center justify-between pt-1">
-											{#if ed.prices && ed.prices.length > 0}
-												<div>
-													{#each ed.prices as price (price.currency + price.territory)}
-														<div class="text-lg font-bold tracking-tight text-foreground">
-															{formatPrice(price.amountInCents, price.currency)}
-														</div>
-														<span class="text-[10px] uppercase text-muted-foreground"
-															>{price.territory}</span
-														>
-													{/each}
-												</div>
-											{/if}
-
-											<Button size="sm" class="cursor-pointer bg-[#0D5C63] text-white hover:bg-[#094a50]">
-												Get Edition
-											</Button>
-										</div>
-									</div>
-								{/each}
-							</div>
-						</div>
-					{/if}
-
-					<!-- Section 3: Authors & Contributors -->
-					{#if titleDetail.contributors && titleDetail.contributors.length > 0}
-						<div class="space-y-4 md:col-span-2 lg:col-span-1">
-							<h2 class="flex items-center gap-2 text-lg font-bold text-foreground">
-								<User class="h-5 w-5 text-primary" />
-								Contributors ({titleDetail.contributors.length})
-							</h2>
-
-							<div class="space-y-4">
-								{#each titleDetail.contributors as contrib (contrib.id)}
-									<div class="flex items-start gap-3">
+						<!-- Tab 2: Available Editions -->
+						<Tabs.Content value="editions" class="pt-1">
+							{#if titleDetail.editions && titleDetail.editions.length > 0}
+								<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl">
+									{#each titleDetail.editions as ed (ed.id)}
 										<div
-											class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary font-bold text-sm"
+											class="flex flex-col justify-between rounded-xl border border-border/50 bg-card/50 p-4 shadow-sm transition-all hover:border-border/80 space-y-3 max-w-md"
 										>
-											{contrib.name.charAt(0).toUpperCase()}
-										</div>
+											<div class="space-y-1.5">
+												<div class="flex items-center justify-between">
+													<span class="font-bold text-foreground">{ed.format}</span>
+													<span
+														class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary"
+													>
+														Edition #{ed.editionNumber}
+													</span>
+												</div>
 
-										<div class="flex-1 space-y-1">
-											<div class="flex items-center justify-between">
-												<h3 class="text-sm font-semibold text-foreground">{contrib.name}</h3>
-												<span
-													class="rounded bg-muted px-2 py-0.5 text-[11px] font-medium uppercase text-muted-foreground"
-												>
-													{contrib.role}
-												</span>
+												<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+													{#if ed.publishedDate}
+														<span class="flex items-center gap-1">
+															<Calendar class="h-3.5 w-3.5 text-muted-foreground/70" />
+															Published {ed.publishedDate}
+														</span>
+													{/if}
+													{#if ed.isbn}
+														<span class="font-mono text-xs text-muted-foreground/70">
+															ISBN {ed.isbn}
+														</span>
+													{/if}
+												</div>
 											</div>
 
-											{#if contrib.bio}
-												<p class="text-xs text-muted-foreground leading-relaxed">{contrib.bio}</p>
-											{:else}
-												<p class="text-xs text-muted-foreground/70 italic">
-													Contributor to this catalog edition.
-												</p>
-											{/if}
+											<div class="flex items-center justify-between pt-2 border-t border-border/30">
+												{#if ed.prices && ed.prices.length > 0}
+													<div>
+														{#each ed.prices as price (price.currency + price.territory)}
+															<div class="text-base font-bold tracking-tight text-foreground">
+																{formatPrice(price.amountInCents, price.currency)}
+															</div>
+														{/each}
+													</div>
+												{/if}
+
+												<Button
+													size="sm"
+													class="cursor-pointer bg-[#0D5C63] text-white hover:bg-[#094a50] shrink-0"
+												>
+													Get Edition
+												</Button>
+											</div>
 										</div>
-									</div>
-								{/each}
-							</div>
-						</div>
-					{/if}
+									{/each}
+								</div>
+							{:else}
+								<p class="text-sm text-muted-foreground">No additional editions available for this title.</p>
+							{/if}
+						</Tabs.Content>
+
+						<!-- Tab 3: Contributors -->
+						<Tabs.Content value="contributors" class="pt-1">
+							{#if titleDetail.contributors && titleDetail.contributors.length > 0}
+								<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl">
+									{#each titleDetail.contributors as contrib (contrib.id)}
+										<div
+											class="flex items-start gap-3.5 rounded-xl border border-border/50 bg-card/50 p-4 shadow-sm transition-all hover:border-border/80 max-w-md"
+										>
+											<div
+												class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary font-bold text-sm"
+											>
+												{contrib.name.charAt(0).toUpperCase()}
+											</div>
+
+											<div class="flex-1 space-y-1 min-w-0">
+												<div class="flex items-center justify-between gap-2">
+													<h3 class="text-sm font-semibold text-foreground truncate">{contrib.name}</h3>
+													<span
+														class="rounded bg-muted px-2 py-0.5 text-[11px] font-medium uppercase text-muted-foreground shrink-0"
+													>
+														{contrib.role}
+													</span>
+												</div>
+
+												{#if contrib.bio}
+													<p class="text-xs text-muted-foreground leading-relaxed line-clamp-3">{contrib.bio}</p>
+												{:else}
+													<p class="text-xs text-muted-foreground/70 italic">
+														Contributor to this catalog edition.
+													</p>
+												{/if}
+											</div>
+										</div>
+									{/each}
+								</div>
+							{:else}
+								<p class="text-sm text-muted-foreground">No contributors listed for this title.</p>
+							{/if}
+						</Tabs.Content>
+					</Tabs.Root>
 				</div>
 			</div>
 		{/if}
