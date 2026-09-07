@@ -90,7 +90,25 @@ export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): 
 				try {
 					data = JSON.parse(text);
 				} catch {
-					data = { detail: text };
+					const isHtml =
+						contentType.includes('text/html') ||
+						/^\s*<(?:!DOCTYPE|html|head|body)/i.test(text);
+
+					if (isHtml) {
+						const titleMatch = text.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+						const h1Match = text.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+						const extractedTitle = (titleMatch?.[1] || h1Match?.[1] || '')
+							.replace(/<[^>]+>/g, '')
+							.trim();
+
+						const cleanMsg = extractedTitle
+							? `Server error: ${extractedTitle}`
+							: `Server returned an HTML response (HTTP ${response.status}${response.statusText ? ' ' + response.statusText : ''})`;
+						data = { detail: cleanMsg };
+					} else {
+						const cleanText = text.length > 300 ? text.slice(0, 300) + '...' : text;
+						data = { detail: cleanText };
+					}
 				}
 			}
 		}
@@ -100,6 +118,17 @@ export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): 
 			const detailMessage =
 				problem?.detail || problem?.title || `Request failed with status ${response.status}`;
 			throw new ApiError(response.status, detailMessage, problem);
+		}
+
+		const dataObj =
+			typeof data === 'object' && data !== null ? (data as Record<string, unknown>) : null;
+		const detailStr = typeof dataObj?.detail === 'string' ? dataObj.detail : '';
+
+		if (contentType.includes('text/html') || detailStr.startsWith('Server returned an HTML')) {
+			throw new ApiError(
+				response.status,
+				`Expected JSON response, but received HTML page (HTTP ${response.status})`
+			);
 		}
 
 		return data as T;

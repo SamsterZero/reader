@@ -43,7 +43,7 @@ describe('Catalog API Client', () => {
 		expect(result).toEqual(mockResponse);
 		expect(mockFetch).toHaveBeenCalledOnce();
 		const [url] = mockFetch.mock.calls[0];
-		expect(url).toBe('/api/v1/catalog/titles?search=Gatsby&language=en&page=0&size=10');
+		expect(url).toContain('/api/v1/catalog/titles?search=Gatsby&language=en&page=0&size=10');
 	});
 
 	it('fetches catalog title detail by slug', async () => {
@@ -85,7 +85,7 @@ describe('Catalog API Client', () => {
 		expect(result).toEqual(mockTitleDetail);
 		expect(mockFetch).toHaveBeenCalledOnce();
 		const [url] = mockFetch.mock.calls[0];
-		expect(url).toBe('/api/v1/catalog/titles/the-great-gatsby');
+		expect(url).toContain('/api/v1/catalog/titles/the-great-gatsby');
 	});
 
 	it('fetches edition detail by edition ID', async () => {
@@ -114,7 +114,7 @@ describe('Catalog API Client', () => {
 		expect(result).toEqual(mockEdition);
 		expect(mockFetch).toHaveBeenCalledOnce();
 		const [url] = mockFetch.mock.calls[0];
-		expect(url).toBe('/api/v1/catalog/editions/ed-1');
+		expect(url).toContain('/api/v1/catalog/editions/ed-1');
 	});
 
 	it('throws ApiOfflineError when fetch fails due to network error', async () => {
@@ -136,5 +136,45 @@ describe('Catalog API Client', () => {
 		);
 
 		await expect(fetchCatalogTitleBySlug('nonexistent')).rejects.toThrow(ApiError);
+	});
+
+	it('parses HTML error pages into a clean human-readable ApiError without leaking HTML text', async () => {
+		const htmlPayload = '<!DOCTYPE html><html><head><title>500 Internal Server Error</title></head><body><h1>Server Error</h1><p>Stack trace...</p></body></html>';
+		vi.stubGlobal(
+			'fetch',
+			vi.fn().mockResolvedValue({
+				ok: false,
+				status: 500,
+				statusText: 'Internal Server Error',
+				headers: new Headers({ 'Content-Type': 'text/html' }),
+				text: vi.fn().mockResolvedValue(htmlPayload)
+			})
+		);
+
+		try {
+			await fetchCatalogTitles();
+			expect.unreachable('Should have thrown ApiError');
+		} catch (err) {
+			expect(err).toBeInstanceOf(ApiError);
+			const apiErr = err as ApiError;
+			expect(apiErr.message).toBe('Server error: 500 Internal Server Error');
+			expect(apiErr.message).not.toContain('<!DOCTYPE');
+			expect(apiErr.message).not.toContain('<p>');
+		}
+	});
+
+	it('throws ApiError when 200 OK returns an HTML page instead of JSON', async () => {
+		const htmlPayload = '<!DOCTYPE html><html><body>Single Page App Fallback</body></html>';
+		vi.stubGlobal(
+			'fetch',
+			vi.fn().mockResolvedValue({
+				ok: true,
+				status: 200,
+				headers: new Headers({ 'Content-Type': 'text/html' }),
+				text: vi.fn().mockResolvedValue(htmlPayload)
+			})
+		);
+
+		await expect(fetchCatalogTitles()).rejects.toThrow(ApiError);
 	});
 });

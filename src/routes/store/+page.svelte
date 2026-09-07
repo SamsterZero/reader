@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
 	import {
 		BookOpen,
 		Globe,
@@ -14,11 +13,7 @@
 	import TopBar from '$lib/components/library/TopBar.svelte';
 	import LibraryBottomBar from '$lib/components/library/LibraryBottomBar.svelte';
 	import { Button } from '$lib/components/ui/button';
-	import {
-		fetchCatalogTitles,
-		type CatalogTitlePage,
-		type CatalogTitleSummary
-	} from '$lib/api/catalog';
+	import { fetchCatalogTitles, type CatalogTitleSummary } from '$lib/api/catalog';
 	import { ApiOfflineError } from '$lib/api/client';
 
 	interface BeforeInstallPromptEvent extends Event {
@@ -141,19 +136,58 @@
 	<meta name="description" content="Browse published catalog titles and editions on Granthalay" />
 </svelte:head>
 
-<div class="min-h-screen bg-background px-4 py-4 pb-24 text-foreground sm:px-6">
-	<TopBar {darkMode} {showInstall} onTheme={toggleDarkMode} onInstall={handleInstall} />
+<div
+	class="min-h-screen bg-background pb-24 font-sans text-foreground transition-colors duration-300"
+>
+	<header
+		class="sticky top-0 z-30 border-b border-border/40 bg-background/80 px-4 pt-4 pb-3 backdrop-blur-md"
+	>
+		<div class="mx-auto max-w-7xl">
+			<TopBar {darkMode} {showInstall} onTheme={toggleDarkMode} onInstall={handleInstall} />
 
-	<main class="mx-auto max-w-4xl py-2">
-		<header class="mb-6">
-			<h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-				Catalog Storefront
-			</h1>
-			<p class="mt-1 text-sm text-muted-foreground">
-				Discover published book titles. Personal imported EPUBs remain strictly stored in your local
-				reader.
-			</p>
-		</header>
+			<!-- Search and Filter Bar -->
+			<form
+				onsubmit={handleSearchSubmit}
+				class="flex flex-col gap-3 sm:flex-row sm:items-center"
+			>
+				<div class="relative flex-1">
+					<Search
+						class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+						aria-hidden="true"
+					/>
+					<input
+						type="search"
+						placeholder="Search title or author..."
+						bind:value={searchQuery}
+						class="w-full rounded-md border border-input bg-background py-2 pr-4 pl-9 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+					/>
+				</div>
+
+				<div class="flex items-center gap-2">
+					<div class="relative flex-1 sm:w-44">
+						<Globe
+							class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+							aria-hidden="true"
+						/>
+						<select
+							value={selectedLanguage}
+							onchange={handleLanguageChange}
+							class="w-full rounded-md border border-input bg-background py-2 pr-4 pl-9 text-sm ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+							aria-label="Filter by language"
+						>
+							{#each languages as lang (lang.code)}
+								<option value={lang.code}>{lang.label}</option>
+							{/each}
+						</select>
+					</div>
+
+					<Button type="submit" size="default" disabled={loading}>Search</Button>
+				</div>
+			</form>
+		</div>
+	</header>
+
+	<main class="mx-auto max-w-7xl px-4 py-4">
 
 		{#if isOffline}
 			<div
@@ -166,11 +200,10 @@
 					/>
 					<div class="flex-1 text-sm">
 						<h2 class="font-semibold text-amber-950 dark:text-amber-100">
-							Storefront Unavailable (Offline)
+							Store Offline
 						</h2>
 						<p class="mt-1">
-							Granthalay API is currently unreachable. Granthalay operates local-first — your saved
-							library books, reading progress, and annotations are 100% accessible offline.
+							Unable to connect to the store. Your saved library books remain available offline.
 						</p>
 						<div class="mt-3">
 							<Button
@@ -200,50 +233,10 @@
 			</div>
 		{/if}
 
-		<!-- Search and Filter Bar -->
-		<form
-			onsubmit={handleSearchSubmit}
-			class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center"
-		>
-			<div class="relative flex-1">
-				<Search
-					class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground"
-					aria-hidden="true"
-				/>
-				<input
-					type="search"
-					placeholder="Search title or author..."
-					bind:value={searchQuery}
-					class="w-full rounded-md border border-input bg-background py-2 pr-4 pl-9 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-				/>
-			</div>
-
-			<div class="flex items-center gap-2">
-				<div class="relative flex-1 sm:w-44">
-					<Globe
-						class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground"
-						aria-hidden="true"
-					/>
-					<select
-						value={selectedLanguage}
-						onchange={handleLanguageChange}
-						class="w-full rounded-md border border-input bg-background py-2 pr-4 pl-9 text-sm ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-						aria-label="Filter by language"
-					>
-						{#each languages as lang}
-							<option value={lang.code}>{lang.label}</option>
-						{/each}
-					</select>
-				</div>
-
-				<Button type="submit" size="default" disabled={loading}>Search</Button>
-			</div>
-		</form>
-
 		<!-- Content Listing -->
 		{#if loading}
-			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-				{#each Array(6) as _}
+			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+				{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as i (i)}
 					<div class="animate-pulse rounded-xl border border-border bg-card p-4 shadow-sm">
 						<div class="h-32 w-full rounded-lg bg-muted"></div>
 						<div class="mt-4 h-4 w-3/4 rounded bg-muted"></div>
@@ -263,7 +256,7 @@
 				</p>
 			</div>
 		{:else if titles.length > 0}
-			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 				{#each titles as item (item.id)}
 					<a
 						href="/store/{item.slug}"

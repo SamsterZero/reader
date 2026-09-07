@@ -7,9 +7,7 @@
 		BookOpen,
 		Calendar,
 		CheckCircle2,
-		Clock,
 		Globe,
-		Info,
 		RefreshCw,
 		ShieldCheck,
 		Tag,
@@ -19,11 +17,7 @@
 	import TopBar from '$lib/components/library/TopBar.svelte';
 	import LibraryBottomBar from '$lib/components/library/LibraryBottomBar.svelte';
 	import { Button } from '$lib/components/ui/button';
-	import {
-		fetchCatalogTitleBySlug,
-		type CatalogTitleDetail,
-		type CatalogEdition
-	} from '$lib/api/catalog';
+	import { fetchCatalogTitleBySlug, type CatalogTitleDetail } from '$lib/api/catalog';
 	import { ApiError, ApiOfflineError } from '$lib/api/client';
 
 	interface BeforeInstallPromptEvent extends Event {
@@ -123,10 +117,18 @@
 	<meta name="description" content={titleDetail?.description || 'Catalog title details'} />
 </svelte:head>
 
-<div class="min-h-screen bg-background px-4 py-4 pb-24 text-foreground sm:px-6">
-	<TopBar {darkMode} {showInstall} onTheme={toggleDarkMode} onInstall={handleInstall} />
+<div
+	class="min-h-screen bg-background pb-24 font-sans text-foreground transition-colors duration-300"
+>
+	<header
+		class="sticky top-0 z-30 border-b border-border/40 bg-background/80 px-4 pt-4 pb-3 backdrop-blur-md"
+	>
+		<div class="mx-auto max-w-5xl">
+			<TopBar {darkMode} {showInstall} onTheme={toggleDarkMode} onInstall={handleInstall} />
+		</div>
+	</header>
 
-	<main class="mx-auto max-w-3xl py-2">
+	<main class="mx-auto max-w-5xl px-4 py-4">
 		<div class="mb-6">
 			<Button
 				variant="ghost"
@@ -150,11 +152,10 @@
 					/>
 					<div class="flex-1 text-sm">
 						<h2 class="font-semibold text-amber-950 dark:text-amber-100">
-							Unable to Connect (Offline)
+							Store Offline
 						</h2>
 						<p class="mt-1">
-							Granthalay API is offline or unreachable. Your saved local books, imported EPUBs, and
-							reading state remain fully accessible in your personal library.
+							Unable to connect to the store. Your saved library books remain available offline.
 						</p>
 						<div class="mt-3 flex gap-2">
 							<Button variant="outline" size="sm" onclick={loadDetail}>
@@ -307,7 +308,7 @@
 								>
 									{#if ed.prices && ed.prices.length > 0}
 										<div class="text-right">
-											{#each ed.prices as price}
+											{#each ed.prices as price (price.currency + price.territory)}
 												<div class="text-base font-bold text-foreground">
 													{formatPrice(price.amountInCents, price.currency)}
 												</div>

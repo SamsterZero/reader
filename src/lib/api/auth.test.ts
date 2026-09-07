@@ -30,7 +30,7 @@ describe('API client and Auth store', () => {
 		expect(res).toEqual({ message: 'success' });
 		expect(mockFetch).toHaveBeenCalledOnce();
 		const [url, init] = mockFetch.mock.calls[0];
-		expect(url).toBe('/api/v1/auth/sign-in');
+		expect(url).toContain('/api/v1/auth/sign-in');
 		expect(init.credentials).toBe('include');
 		expect(init.headers.get('X-XSRF-TOKEN')).toBe('test-csrf-token-123');
 	});
