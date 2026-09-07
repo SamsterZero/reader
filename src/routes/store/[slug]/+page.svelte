@@ -279,7 +279,7 @@
 
 						<Button class="w-full cursor-pointer gap-2 bg-[#0D5C63] text-white hover:bg-[#094a50] sm:w-auto">
 							<ShoppingBag class="h-4 w-4" />
-							Buy Now ({heroPrice})
+							Buy Now
 						</Button>
 					</div>
 				</div>
