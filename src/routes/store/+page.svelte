@@ -144,7 +144,7 @@
 	<header
 		class="sticky top-0 z-30 border-b border-border/40 bg-background/80 px-4 pt-4 pb-3 backdrop-blur-md"
 	>
-		<div class="mx-auto max-w-7xl">
+		<div class="w-full">
 			<TopBar {darkMode} {showInstall} onTheme={toggleDarkMode} onInstall={handleInstall} />
 
 			<!-- Search and Filter Bar -->
@@ -189,7 +189,7 @@
 		</div>
 	</header>
 
-	<main class="mx-auto max-w-7xl px-4 py-4">
+	<main class="w-full px-4 py-4">
 
 		{#if isOffline}
 			<div
@@ -238,9 +238,9 @@
 		<!-- Content Listing -->
 		{#if loading}
 			<div
-				class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+				class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 3xl:grid-cols-8 4xl:grid-cols-9"
 			>
-				{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as i (i)}
+				{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as i (i)}
 					<div class="group">
 						<AspectRatio
 							ratio={2 / 3}
@@ -262,7 +262,7 @@
 			</div>
 		{:else if titles.length > 0}
 			<div
-				class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+				class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 3xl:grid-cols-8 4xl:grid-cols-9"
 			>
 				{#each titles as item (item.id)}
 					<StoreBookCard

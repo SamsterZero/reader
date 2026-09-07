@@ -123,12 +123,12 @@
 	<header
 		class="sticky top-0 z-30 border-b border-border/40 bg-background/80 px-4 py-3 backdrop-blur-md"
 	>
-		<div class="mx-auto max-w-5xl [&_nav]:mb-0">
+		<div class="w-full [&_nav]:mb-0">
 			<TopBar {darkMode} {showInstall} onTheme={toggleDarkMode} onInstall={handleInstall} />
 		</div>
 	</header>
 
-	<main class="mx-auto max-w-5xl px-4 py-4">
+	<main class="w-full px-4 py-4">
 		<div class="mb-6">
 			<Button
 				variant="ghost"
@@ -249,7 +249,7 @@
 						<User class="h-5 w-5 text-primary" />
 						Contributors
 					</h2>
-					<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+					<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
 						{#each titleDetail.contributors as contrib (contrib.id)}
 							<div class="rounded-lg border border-border bg-card p-3 shadow-sm">
 								<div class="flex items-center justify-between">
@@ -277,7 +277,7 @@
 						Available Editions ({titleDetail.editions.length})
 					</h2>
 
-					<div class="space-y-4">
+					<div class="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
 						{#each titleDetail.editions as ed (ed.id)}
 							<div
 								class="flex flex-col gap-3 rounded-xl border border-border bg-card p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between"
