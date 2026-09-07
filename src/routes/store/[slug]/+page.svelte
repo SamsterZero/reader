@@ -28,6 +28,12 @@
 	const slug = $derived(page.params.slug || '');
 
 	let titleDetail = $state<CatalogTitleDetail | null>(null);
+	const authorNames = $derived(
+		titleDetail?.contributors
+			?.filter((c) => c.role.toUpperCase() === 'AUTHOR')
+			?.map((c) => c.name)
+			?.join(', ') || ''
+	);
 	let loading = $state(true);
 	let isOffline = $state(false);
 	let notFound = $state(false);
@@ -210,12 +216,12 @@
 			<!-- Book Hero Header -->
 			<div class="flex flex-col gap-6 sm:flex-row sm:items-start">
 				<div
-					class="flex h-56 w-40 shrink-0 items-center justify-center rounded-xl border border-border bg-gradient-to-br from-primary/15 via-primary/5 to-muted p-6 shadow-md"
+					class="flex h-56 w-40 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl border border-border bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-4 text-center text-white shadow-md"
 				>
-					<BookOpen class="h-16 w-16 text-primary" aria-hidden="true" />
+					<span class="text-6xl font-bold">{titleDetail.title.charAt(0).toUpperCase()}</span>
 				</div>
 
-				<div class="flex-1 space-y-3">
+				<div class="flex-1 space-y-2">
 					<div class="flex items-center gap-2">
 						{#if titleDetail.language}
 							<span
@@ -230,8 +236,15 @@
 					<h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
 						{titleDetail.title}
 					</h1>
+
+					{#if authorNames}
+						<p class="text-base font-semibold text-foreground/90 sm:text-lg">
+							by <span class="text-primary">{authorNames}</span>
+						</p>
+					{/if}
+
 					{#if titleDetail.subtitle}
-						<p class="text-base text-muted-foreground">{titleDetail.subtitle}</p>
+						<p class="text-sm text-muted-foreground">{titleDetail.subtitle}</p>
 					{/if}
 
 					{#if titleDetail.description}
