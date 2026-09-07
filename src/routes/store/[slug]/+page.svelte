@@ -9,7 +9,6 @@
 		CheckCircle2,
 		Globe,
 		RefreshCw,
-		ShieldCheck,
 		ShoppingBag,
 		Tag,
 		User,
@@ -231,7 +230,7 @@
 			<div class="lg:grid lg:grid-cols-12 lg:items-start lg:gap-8">
 				<!-- Left Sidebar: Cover Artwork & Quick Metadata (Desktop Sticky) -->
 				<div
-					class="flex flex-col items-center space-y-6 sm:items-start lg:sticky lg:top-20 lg:col-span-4 xl:col-span-3"
+					class="flex flex-col items-center space-y-4 sm:items-start lg:sticky lg:top-20 lg:col-span-4 xl:col-span-3"
 				>
 					<!-- Cover Artwork -->
 					<div
@@ -242,45 +241,27 @@
 						>
 					</div>
 
-					<!-- Quick Metadata Badges & Privacy Card -->
-					<div class="w-full space-y-4">
-						<div class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-							{#if titleDetail.language}
-								<span
-									class="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
-								>
-									<Globe class="h-3.5 w-3.5" />
-									{titleDetail.language.toUpperCase()}
-								</span>
-							{/if}
+					<!-- Quick Metadata Badges -->
+					<div class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+						{#if titleDetail.language}
 							<span
-								class="inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400"
+								class="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
 							>
-								<CheckCircle2 class="h-3.5 w-3.5" />
-								DRM-Free EPUB
+								<Globe class="h-3.5 w-3.5" />
+								{titleDetail.language.toUpperCase()}
 							</span>
-						</div>
-
-						<!-- Privacy & Local-First Notice -->
-						<div class="rounded-xl border border-border bg-muted/40 p-4">
-							<div class="flex items-start gap-3">
-								<ShieldCheck class="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
-								<div class="text-xs text-muted-foreground">
-									<h3 class="mb-0.5 text-sm font-semibold text-foreground">
-										Local-First Reader
-									</h3>
-									<p>
-										Granthalay preserves your privacy. Personal EPUB imports, bookmarks,
-										highlights, and history stay exclusively on your local device.
-									</p>
-								</div>
-							</div>
-						</div>
+						{/if}
+						<span
+							class="inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400"
+						>
+							<CheckCircle2 class="h-3.5 w-3.5" />
+							DRM-Free EPUB
+						</span>
 					</div>
 				</div>
 
 				<!-- Right Main Column: Title, Author, Description, Price Bar, Contributors, Editions -->
-				<div class="mt-6 space-y-8 lg:col-span-8 lg:mt-0 xl:col-span-9">
+				<div class="mt-6 space-y-6 lg:col-span-8 lg:mt-0 xl:col-span-9">
 					<!-- Title & Author Header -->
 					<div class="space-y-2 text-center sm:text-left">
 						<h1 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
@@ -294,14 +275,11 @@
 						{/if}
 					</div>
 
-					<!-- Synopsis / Description -->
+					<!-- Description -->
 					{#if titleDetail.description}
-						<div class="border-t border-border pt-4">
-							<h2 class="mb-2 text-base font-semibold text-foreground">Synopsis</h2>
-							<p class="text-sm leading-relaxed text-foreground/90 sm:text-base">
-								{titleDetail.description}
-							</p>
-						</div>
+						<p class="text-sm leading-relaxed text-foreground/90 sm:text-base">
+							{titleDetail.description}
+						</p>
 					{/if}
 
 					<!-- Price & Purchase Action -->
