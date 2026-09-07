@@ -34,7 +34,7 @@
 </script>
 
 <a
-	href={resolve(`/store/${slug}` as any)}
+	href={resolve('/store/[slug]', { slug })}
 	class="group block rounded-xl text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
 	aria-label={`View ${title}${author ? ` by ${author}` : ''}`}
 >
