@@ -306,7 +306,7 @@
 
 					<!-- Contributors Section -->
 					{#if titleDetail.contributors && titleDetail.contributors.length > 0}
-						<section class="border-t border-border pt-6">
+						<section class="pt-2">
 							<h2 class="mb-4 flex items-center gap-2 text-lg font-semibold text-foreground">
 								<User class="h-5 w-5 text-primary" />
 								Contributors ({titleDetail.contributors.length})
@@ -333,7 +333,7 @@
 
 					<!-- Available Editions Section -->
 					{#if titleDetail.editions && titleDetail.editions.length > 0}
-						<section class="border-t border-border pt-6">
+						<section class="pt-2">
 							<h2 class="mb-4 flex items-center gap-2 text-lg font-semibold text-foreground">
 								<Tag class="h-5 w-5 text-primary" />
 								Available Editions ({titleDetail.editions.length})
@@ -373,7 +373,7 @@
 											{/if}
 										</div>
 
-										<div class="flex items-center justify-between border-t border-border/50 pt-3">
+										<div class="flex items-center justify-between pt-1">
 											{#if ed.prices && ed.prices.length > 0}
 												<div>
 													{#each ed.prices as price (price.currency + price.territory)}
