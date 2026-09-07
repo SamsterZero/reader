@@ -148,10 +148,7 @@
 			<TopBar {darkMode} {showInstall} onTheme={toggleDarkMode} onInstall={handleInstall} />
 
 			<!-- Search and Filter Bar -->
-			<form
-				onsubmit={handleSearchSubmit}
-				class="flex flex-col gap-3 sm:flex-row sm:items-center"
-			>
+			<form onsubmit={handleSearchSubmit} class="flex flex-col gap-3 sm:flex-row sm:items-center">
 				<div class="relative flex-1">
 					<Search
 						class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground"
@@ -190,7 +187,6 @@
 	</header>
 
 	<main class="w-full px-4 py-4">
-
 		{#if isOffline}
 			<div
 				class="mb-6 rounded-lg border border-amber-500/30 bg-amber-500/10 p-4 text-amber-900 dark:text-amber-200"
@@ -201,9 +197,7 @@
 						aria-hidden="true"
 					/>
 					<div class="flex-1 text-sm">
-						<h2 class="font-semibold text-amber-950 dark:text-amber-100">
-							Store Offline
-						</h2>
+						<h2 class="font-semibold text-amber-950 dark:text-amber-100">Store Offline</h2>
 						<p class="mt-1">
 							Unable to connect to the store. Your saved library books remain available offline.
 						</p>
@@ -238,7 +232,7 @@
 		<!-- Content Listing -->
 		{#if loading}
 			<div
-				class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 3xl:grid-cols-8 4xl:grid-cols-9"
+				class="3xl:grid-cols-8 4xl:grid-cols-9 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
 			>
 				{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as i (i)}
 					<div class="group">
@@ -262,7 +256,7 @@
 			</div>
 		{:else if titles.length > 0}
 			<div
-				class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 3xl:grid-cols-8 4xl:grid-cols-9"
+				class="3xl:grid-cols-8 4xl:grid-cols-9 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
 			>
 				{#each titles as item (item.id)}
 					<StoreBookCard
@@ -277,40 +271,40 @@
 			</div>
 		{/if}
 
-			<!-- Pagination Bar -->
-			{#if totalPages > 1}
-				<div
-					class="mt-8 flex items-center justify-between border-t border-border pt-4 text-sm text-muted-foreground"
-				>
-					<span>
-						Page {page + 1} of {totalPages} ({totalElements} titles)
-					</span>
+		<!-- Pagination Bar -->
+		{#if totalPages > 1}
+			<div
+				class="mt-8 flex items-center justify-between border-t border-border pt-4 text-sm text-muted-foreground"
+			>
+				<span>
+					Page {page + 1} of {totalPages} ({totalElements} titles)
+				</span>
 
-					<div class="flex items-center gap-2">
-						<Button
-							variant="outline"
-							size="sm"
-							disabled={page <= 0}
-							onclick={() => goToPage(page - 1)}
-							aria-label="Previous Page"
-						>
-							<ChevronLeft class="mr-1 h-4 w-4" />
-							Previous
-						</Button>
+				<div class="flex items-center gap-2">
+					<Button
+						variant="outline"
+						size="sm"
+						disabled={page <= 0}
+						onclick={() => goToPage(page - 1)}
+						aria-label="Previous Page"
+					>
+						<ChevronLeft class="mr-1 h-4 w-4" />
+						Previous
+					</Button>
 
-						<Button
-							variant="outline"
-							size="sm"
-							disabled={page >= totalPages - 1}
-							onclick={() => goToPage(page + 1)}
-							aria-label="Next Page"
-						>
-							Next
-							<ChevronRight class="ml-1 h-4 w-4" />
-						</Button>
-					</div>
+					<Button
+						variant="outline"
+						size="sm"
+						disabled={page >= totalPages - 1}
+						onclick={() => goToPage(page + 1)}
+						aria-label="Next Page"
+					>
+						Next
+						<ChevronRight class="ml-1 h-4 w-4" />
+					</Button>
 				</div>
-			{/if}
+			</div>
+		{/if}
 	</main>
 
 	<LibraryBottomBar active="store" />

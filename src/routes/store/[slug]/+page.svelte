@@ -172,9 +172,7 @@
 						aria-hidden="true"
 					/>
 					<div class="flex-1 text-sm">
-						<h2 class="font-semibold text-amber-950 dark:text-amber-100">
-							Store Offline
-						</h2>
+						<h2 class="font-semibold text-amber-950 dark:text-amber-100">Store Offline</h2>
 						<p class="mt-1">
 							Unable to connect to the store. Your saved library books remain available offline.
 						</p>
@@ -219,10 +217,10 @@
 		{#if loading}
 			<div class="animate-pulse space-y-6">
 				<div class="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
-					<div class="mx-auto sm:mx-0 h-56 w-40 shrink-0 rounded-xl bg-muted"></div>
+					<div class="mx-auto h-56 w-40 shrink-0 rounded-xl bg-muted sm:mx-0"></div>
 					<div class="w-full flex-1 space-y-3">
-						<div class="mx-auto sm:mx-0 h-6 w-3/4 rounded bg-muted"></div>
-						<div class="mx-auto sm:mx-0 h-4 w-1/2 rounded bg-muted"></div>
+						<div class="mx-auto h-6 w-3/4 rounded bg-muted sm:mx-0"></div>
+						<div class="mx-auto h-4 w-1/2 rounded bg-muted sm:mx-0"></div>
 						<div class="h-20 w-full rounded bg-muted"></div>
 					</div>
 				</div>
@@ -233,7 +231,7 @@
 				<div class="flex flex-col items-center gap-6 sm:flex-row sm:items-start md:gap-8 lg:gap-10">
 					<!-- Cover Artwork -->
 					<div
-						class="flex aspect-[2/3] w-44 shrink-0 max-w-[260px] flex-col items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-6 text-center text-white shadow-lg transition-all duration-300 sm:w-52 lg:w-60"
+						class="flex aspect-[2/3] w-44 max-w-[260px] shrink-0 flex-col items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-6 text-center text-white shadow-lg transition-all duration-300 sm:w-52 lg:w-60"
 					>
 						<span class="text-7xl font-bold lg:text-8xl"
 							>{titleDetail.title.charAt(0).toUpperCase()}</span
@@ -244,9 +242,7 @@
 					<div class="w-full flex-1 space-y-4 text-center sm:text-left">
 						<!-- Title & Author -->
 						<div class="space-y-1.5">
-							<h1
-								class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
-							>
+							<h1 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
 								{titleDetail.title}
 							</h1>
 
@@ -317,23 +313,25 @@
 				<!-- Tabbed Details Section: Compact High-Contrast Tabs -->
 				<div>
 					<Tabs.Root value="specifications" class="w-full space-y-3">
-						<Tabs.List class="flex w-full sm:w-fit items-center justify-start gap-2 overflow-x-auto no-scrollbar h-auto bg-transparent p-1">
+						<Tabs.List
+							class="no-scrollbar flex h-auto w-full items-center justify-start gap-2 overflow-x-auto bg-transparent p-1 sm:w-fit"
+						>
 							<Tabs.Trigger
 								value="specifications"
-								class="group inline-flex shrink-0 whitespace-nowrap items-center gap-2 rounded-full px-4 py-2.5 sm:py-3 text-xs font-semibold sm:text-sm bg-muted/70 text-muted-foreground hover:bg-muted hover:text-foreground transition-all data-active:bg-[#0D5C63] dark:data-active:bg-[#14838f] data-active:text-white dark:data-active:text-white data-active:shadow-sm"
+								class="group inline-flex shrink-0 items-center gap-2 rounded-full bg-muted/70 px-4 py-2.5 text-xs font-semibold whitespace-nowrap text-muted-foreground transition-all hover:bg-muted hover:text-foreground sm:py-3 sm:text-sm data-active:bg-[#0D5C63] data-active:text-white data-active:shadow-sm dark:data-active:bg-[#14838f] dark:data-active:text-white"
 							>
 								<BookOpen class="h-4 w-4 shrink-0" />
 								<span>Specifications</span>
 							</Tabs.Trigger>
 							<Tabs.Trigger
 								value="editions"
-								class="group inline-flex shrink-0 whitespace-nowrap items-center gap-2 rounded-full px-4 py-2.5 sm:py-3 text-xs font-semibold sm:text-sm bg-muted/70 text-muted-foreground hover:bg-muted hover:text-foreground transition-all data-active:bg-[#0D5C63] dark:data-active:bg-[#14838f] data-active:text-white dark:data-active:text-white data-active:shadow-sm"
+								class="group inline-flex shrink-0 items-center gap-2 rounded-full bg-muted/70 px-4 py-2.5 text-xs font-semibold whitespace-nowrap text-muted-foreground transition-all hover:bg-muted hover:text-foreground sm:py-3 sm:text-sm data-active:bg-[#0D5C63] data-active:text-white data-active:shadow-sm dark:data-active:bg-[#14838f] dark:data-active:text-white"
 							>
 								<Tag class="h-4 w-4 shrink-0" />
 								<span>Editions</span>
 								{#if titleDetail.editions?.length}
 									<span
-										class="ml-1 rounded-full px-2 py-0.5 text-[10px] font-bold bg-primary/15 text-primary group-data-[state=active]:bg-white/20 group-data-[state=active]:text-white dark:group-data-[state=active]:bg-white/25 dark:group-data-[state=active]:text-white"
+										class="ml-1 rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-bold text-primary group-data-[state=active]:bg-white/20 group-data-[state=active]:text-white dark:group-data-[state=active]:bg-white/25 dark:group-data-[state=active]:text-white"
 									>
 										{titleDetail.editions.length}
 									</span>
@@ -341,13 +339,13 @@
 							</Tabs.Trigger>
 							<Tabs.Trigger
 								value="contributors"
-								class="group inline-flex shrink-0 whitespace-nowrap items-center gap-2 rounded-full px-4 py-2.5 sm:py-3 text-xs font-semibold sm:text-sm bg-muted/70 text-muted-foreground hover:bg-muted hover:text-foreground transition-all data-active:bg-[#0D5C63] dark:data-active:bg-[#14838f] data-active:text-white dark:data-active:text-white data-active:shadow-sm"
+								class="group inline-flex shrink-0 items-center gap-2 rounded-full bg-muted/70 px-4 py-2.5 text-xs font-semibold whitespace-nowrap text-muted-foreground transition-all hover:bg-muted hover:text-foreground sm:py-3 sm:text-sm data-active:bg-[#0D5C63] data-active:text-white data-active:shadow-sm dark:data-active:bg-[#14838f] dark:data-active:text-white"
 							>
 								<User class="h-4 w-4 shrink-0" />
 								<span>Contributors</span>
 								{#if titleDetail.contributors?.length}
 									<span
-										class="ml-1 rounded-full px-2 py-0.5 text-[10px] font-bold bg-primary/15 text-primary group-data-[state=active]:bg-white/20 group-data-[state=active]:text-white dark:group-data-[state=active]:bg-white/25 dark:group-data-[state=active]:text-white"
+										class="ml-1 rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-bold text-primary group-data-[state=active]:bg-white/20 group-data-[state=active]:text-white dark:group-data-[state=active]:bg-white/25 dark:group-data-[state=active]:text-white"
 									>
 										{titleDetail.contributors.length}
 									</span>
@@ -357,7 +355,9 @@
 
 						<!-- Tab 1: Specifications (Borderless Grid) -->
 						<Tabs.Content value="specifications" class="pt-1">
-							<div class="grid grid-cols-2 gap-x-8 gap-y-4 text-sm sm:grid-cols-3 md:grid-cols-4 max-w-4xl">
+							<div
+								class="grid max-w-4xl grid-cols-2 gap-x-8 gap-y-4 text-sm sm:grid-cols-3 md:grid-cols-4"
+							>
 								<div class="space-y-1">
 									<span class="text-xs font-medium text-muted-foreground">Language</span>
 									<p class="font-semibold text-foreground">
@@ -384,14 +384,14 @@
 									</p>
 								</div>
 
-								<div class="space-y-1 col-span-2 sm:col-span-1">
+								<div class="col-span-2 space-y-1 sm:col-span-1">
 									<span class="text-xs font-medium text-muted-foreground">ISBN</span>
 									<p class="font-mono font-semibold text-foreground">
 										{titleDetail.editions?.[0]?.isbn || 'N/A'}
 									</p>
 								</div>
 
-								<div class="space-y-1 col-span-2 sm:col-span-2">
+								<div class="col-span-2 space-y-1 sm:col-span-2">
 									<span class="text-xs font-medium text-muted-foreground">Delivery & Access</span>
 									<p class="text-xs text-foreground">
 										Instant PWA Reader Sync · Read Offline Anytime
@@ -403,10 +403,10 @@
 						<!-- Tab 2: Available Editions -->
 						<Tabs.Content value="editions" class="pt-1">
 							{#if titleDetail.editions && titleDetail.editions.length > 0}
-								<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl">
+								<div class="grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
 									{#each titleDetail.editions as ed (ed.id)}
 										<div
-											class="flex flex-col justify-between rounded-xl border border-border/50 bg-card/50 p-4 shadow-sm transition-all hover:border-border/80 space-y-3 max-w-md"
+											class="flex max-w-md flex-col justify-between space-y-3 rounded-xl border border-border/50 bg-card/50 p-4 shadow-sm transition-all hover:border-border/80"
 										>
 											<div class="space-y-1.5">
 												<div class="flex items-center justify-between">
@@ -418,7 +418,9 @@
 													</span>
 												</div>
 
-												<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+												<div
+													class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground"
+												>
 													{#if ed.publishedDate}
 														<span class="flex items-center gap-1">
 															<Calendar class="h-3.5 w-3.5 text-muted-foreground/70" />
@@ -433,7 +435,7 @@
 												</div>
 											</div>
 
-											<div class="flex items-center justify-between pt-2 border-t border-border/30">
+											<div class="flex items-center justify-between border-t border-border/30 pt-2">
 												{#if ed.prices && ed.prices.length > 0}
 													<div>
 														{#each ed.prices as price (price.currency + price.territory)}
@@ -446,7 +448,7 @@
 
 												<Button
 													size="sm"
-													class="cursor-pointer bg-[#0D5C63] text-white hover:bg-[#094a50] shrink-0"
+													class="shrink-0 cursor-pointer bg-[#0D5C63] text-white hover:bg-[#094a50]"
 												>
 													Get Edition
 												</Button>
@@ -455,36 +457,42 @@
 									{/each}
 								</div>
 							{:else}
-								<p class="text-sm text-muted-foreground">No additional editions available for this title.</p>
+								<p class="text-sm text-muted-foreground">
+									No additional editions available for this title.
+								</p>
 							{/if}
 						</Tabs.Content>
 
 						<!-- Tab 3: Contributors -->
 						<Tabs.Content value="contributors" class="pt-1">
 							{#if titleDetail.contributors && titleDetail.contributors.length > 0}
-								<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl">
+								<div class="grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
 									{#each titleDetail.contributors as contrib (contrib.id)}
 										<div
-											class="flex items-start gap-3.5 rounded-xl border border-border/50 bg-card/50 p-4 shadow-sm transition-all hover:border-border/80 max-w-md"
+											class="flex max-w-md items-start gap-3.5 rounded-xl border border-border/50 bg-card/50 p-4 shadow-sm transition-all hover:border-border/80"
 										>
 											<div
-												class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary font-bold text-sm"
+												class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary"
 											>
 												{contrib.name.charAt(0).toUpperCase()}
 											</div>
 
-											<div class="flex-1 space-y-1 min-w-0">
+											<div class="min-w-0 flex-1 space-y-1">
 												<div class="flex items-center justify-between gap-2">
-													<h3 class="text-sm font-semibold text-foreground truncate">{contrib.name}</h3>
+													<h3 class="truncate text-sm font-semibold text-foreground">
+														{contrib.name}
+													</h3>
 													<span
-														class="rounded bg-muted px-2 py-0.5 text-[11px] font-medium uppercase text-muted-foreground shrink-0"
+														class="shrink-0 rounded bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground uppercase"
 													>
 														{contrib.role}
 													</span>
 												</div>
 
 												{#if contrib.bio}
-													<p class="text-xs text-muted-foreground leading-relaxed line-clamp-3">{contrib.bio}</p>
+													<p class="line-clamp-3 text-xs leading-relaxed text-muted-foreground">
+														{contrib.bio}
+													</p>
 												{:else}
 													<p class="text-xs text-muted-foreground/70 italic">
 														Contributor to this catalog edition.

@@ -91,8 +91,7 @@ export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): 
 					data = JSON.parse(text);
 				} catch {
 					const isHtml =
-						contentType.includes('text/html') ||
-						/^\s*<(?:!DOCTYPE|html|head|body)/i.test(text);
+						contentType.includes('text/html') || /^\s*<(?:!DOCTYPE|html|head|body)/i.test(text);
 
 					if (isHtml) {
 						const titleMatch = text.match(/<title[^>]*>([\s\S]*?)<\/title>/i);

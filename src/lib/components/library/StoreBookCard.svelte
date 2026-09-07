@@ -35,7 +35,7 @@
 
 <a
 	href="/store/{slug}"
-	class="group block text-left rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+	class="group block rounded-xl text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
 	aria-label={`View ${title}${author ? ` by ${author}` : ''}`}
 >
 	<div class="group relative">
@@ -78,7 +78,7 @@
 				</h3>
 				{#if author}
 					<p
-						class="mt-0.5 line-clamp-1 text-xs text-white/80 font-normal [text-shadow:0_1px_2px_rgba(0,0,0,0.6)]"
+						class="mt-0.5 line-clamp-1 text-xs font-normal text-white/80 [text-shadow:0_1px_2px_rgba(0,0,0,0.6)]"
 					>
 						{author}
 					</p>

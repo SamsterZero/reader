@@ -105,7 +105,7 @@ export function getTitleDisplayPrice(item: { slug?: string; price?: string }): s
 		'the-great-gatsby': '$9.99',
 		'pride-and-prejudice': '$7.99',
 		'moby-dick': '$12.99',
-		'frankenstein': '$8.99',
+		frankenstein: '$8.99',
 		'le-petit-prince': '€6.99',
 		'die-verwandlung': '€5.99'
 	};

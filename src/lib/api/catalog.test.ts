@@ -139,7 +139,8 @@ describe('Catalog API Client', () => {
 	});
 
 	it('parses HTML error pages into a clean human-readable ApiError without leaking HTML text', async () => {
-		const htmlPayload = '<!DOCTYPE html><html><head><title>500 Internal Server Error</title></head><body><h1>Server Error</h1><p>Stack trace...</p></body></html>';
+		const htmlPayload =
+			'<!DOCTYPE html><html><head><title>500 Internal Server Error</title></head><body><h1>Server Error</h1><p>Stack trace...</p></body></html>';
 		vi.stubGlobal(
 			'fetch',
 			vi.fn().mockResolvedValue({
