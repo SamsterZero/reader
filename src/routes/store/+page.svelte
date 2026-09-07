@@ -271,6 +271,7 @@
 						subtitle={item.subtitle}
 						author={item.primaryAuthorName}
 						language={item.language}
+						price={item.price}
 					/>
 				{/each}
 			</div>

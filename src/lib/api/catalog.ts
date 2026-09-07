@@ -7,6 +7,7 @@ export interface CatalogTitleSummary {
 	subtitle?: string;
 	language: string;
 	primaryAuthorName?: string;
+	price?: string;
 }
 
 export interface CatalogContributor {

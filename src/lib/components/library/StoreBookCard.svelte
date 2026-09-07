@@ -8,9 +8,10 @@
 		author?: string;
 		language?: string;
 		cover?: string | Blob | null;
+		price?: string;
 	}
 
-	let { slug, title, subtitle, author, language, cover }: Props = $props();
+	let { slug, title, subtitle, author, language, cover, price }: Props = $props();
 	let coverUrl = $state<string | null>(null);
 
 	$effect(() => {
@@ -81,5 +82,11 @@
 				{/if}
 			</div>
 		</AspectRatio>
+	</div>
+
+	<!-- Price & Action below card -->
+	<div class="mt-2 flex items-center justify-between px-1 text-xs">
+		<span class="font-semibold text-foreground">{price || '$9.99'}</span>
+		<span class="text-[11px] font-medium text-primary group-hover:underline">View details</span>
 	</div>
 </a>
