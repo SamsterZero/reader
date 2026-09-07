@@ -305,7 +305,7 @@
 					</div>
 				</div>
 
-				<!-- Available Editions Section (Full-Width Responsive Rich Tiled Grid) -->
+				<!-- Available Editions Section (Option 3: Horizontal Carousel Strip) -->
 				{#if titleDetail.editions && titleDetail.editions.length > 0}
 					<section class="space-y-4 pt-2">
 						<h2 class="flex items-center gap-2 text-xl font-bold text-foreground">
@@ -314,11 +314,11 @@
 						</h2>
 
 						<div
-							class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
+							class="flex snap-x snap-mandatory overflow-x-auto gap-4 pb-4 pt-1 scrollbar-thin scrollbar-thumb-muted-foreground/20"
 						>
 							{#each titleDetail.editions as ed (ed.id)}
 								<div
-									class="flex flex-col justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-xs transition-all hover:border-primary/40 hover:shadow-md"
+									class="flex w-72 shrink-0 snap-start flex-col justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-xs transition-all hover:border-primary/40 hover:shadow-md"
 								>
 									<div class="space-y-2">
 										<div class="flex flex-wrap items-center gap-2">
@@ -373,7 +373,7 @@
 					</section>
 				{/if}
 
-				<!-- Contributors Section (Full-Width Responsive Rich Tiled Grid) -->
+				<!-- Contributors Section (Option 3: Horizontal Carousel Strip) -->
 				{#if titleDetail.contributors && titleDetail.contributors.length > 0}
 					<section class="space-y-4 pt-2">
 						<h2 class="flex items-center gap-2 text-xl font-bold text-foreground">
@@ -381,10 +381,10 @@
 							Contributors ({titleDetail.contributors.length})
 						</h2>
 						<div
-							class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
+							class="flex snap-x snap-mandatory overflow-x-auto gap-4 pb-4 pt-1 scrollbar-thin scrollbar-thumb-muted-foreground/20"
 						>
 							{#each titleDetail.contributors as contrib (contrib.id)}
-								<div class="rounded-lg border border-border bg-card p-3.5 shadow-xs">
+								<div class="w-64 shrink-0 snap-start rounded-lg border border-border bg-card p-3.5 shadow-xs hover:border-primary/40 transition-all">
 									<div class="flex items-center justify-between">
 										<h3 class="text-sm font-semibold text-foreground">{contrib.name}</h3>
 										<span
