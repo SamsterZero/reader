@@ -10,6 +10,7 @@
 		Globe,
 		RefreshCw,
 		ShieldCheck,
+		ShoppingBag,
 		Tag,
 		User,
 		WifiOff
@@ -17,7 +18,11 @@
 	import TopBar from '$lib/components/library/TopBar.svelte';
 	import LibraryBottomBar from '$lib/components/library/LibraryBottomBar.svelte';
 	import { Button } from '$lib/components/ui/button';
-	import { fetchCatalogTitleBySlug, type CatalogTitleDetail } from '$lib/api/catalog';
+	import {
+		fetchCatalogTitleBySlug,
+		getTitleDisplayPrice,
+		type CatalogTitleDetail
+	} from '$lib/api/catalog';
 	import { ApiError, ApiOfflineError } from '$lib/api/client';
 
 	interface BeforeInstallPromptEvent extends Event {
@@ -34,6 +39,16 @@
 			?.map((c) => c.name)
 			?.join(', ') || ''
 	);
+	const heroPrice = $derived.by(() => {
+		if (!titleDetail?.editions?.length) {
+			return getTitleDisplayPrice({ slug });
+		}
+		const firstPrice = titleDetail.editions[0]?.prices?.[0];
+		if (firstPrice) {
+			return formatPrice(firstPrice.amountInCents, firstPrice.currency);
+		}
+		return getTitleDisplayPrice({ slug });
+	});
 	let loading = $state(true);
 	let isOffline = $state(false);
 	let notFound = $state(false);
@@ -248,6 +263,23 @@
 							{titleDetail.description}
 						</p>
 					{/if}
+
+					<!-- Price Tag & Purchasing Action Bar -->
+					<div
+						class="mt-4 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-xs"
+					>
+						<div>
+							<div class="text-2xl font-bold tracking-tight text-foreground">
+								{heroPrice}
+							</div>
+							<p class="text-xs text-muted-foreground">Digital EPUB · DRM-Free · Instant Access</p>
+						</div>
+
+						<Button class="cursor-pointer gap-2 bg-[#0D5C63] text-white hover:bg-[#094a50]">
+							<ShoppingBag class="h-4 w-4" />
+							Buy Now ({heroPrice})
+						</Button>
+					</div>
 				</div>
 			</div>
 
@@ -289,36 +321,42 @@
 					<div class="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
 						{#each titleDetail.editions as ed (ed.id)}
 							<div
-								class="flex flex-col gap-3 rounded-xl border border-border bg-card p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between"
+								class="flex flex-col justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-xs transition-shadow hover:shadow-md"
 							>
-								<div class="space-y-1">
-									<div class="flex items-center gap-2">
-										<span class="font-semibold text-foreground">{ed.format}</span>
+								<div class="space-y-2">
+									<div class="flex flex-wrap items-center gap-2">
+										<span class="font-bold text-foreground">{ed.format}</span>
 										<span
-											class="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
+											class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary"
 										>
 											Edition #{ed.editionNumber}
 										</span>
+										<span
+											class="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400"
+										>
+											DRM-Free
+										</span>
 									</div>
 
-									{#if ed.isbn}
-										<p class="text-xs text-muted-foreground">ISBN: {ed.isbn}</p>
-									{/if}
 									{#if ed.publishedDate}
-										<p class="flex items-center gap-1 text-xs text-muted-foreground">
-											<Calendar class="h-3 w-3" />
+										<p class="flex items-center gap-1.5 text-xs text-muted-foreground">
+											<Calendar class="h-3.5 w-3.5 text-muted-foreground/70" />
 											Published {ed.publishedDate}
+										</p>
+									{/if}
+
+									{#if ed.isbn}
+										<p class="font-mono text-[11px] text-muted-foreground/70">
+											ISBN {ed.isbn}
 										</p>
 									{/if}
 								</div>
 
-								<div
-									class="flex flex-wrap items-center gap-3 border-t border-border/50 pt-2 sm:border-0 sm:pt-0"
-								>
+								<div class="flex items-center justify-between border-t border-border/50 pt-3">
 									{#if ed.prices && ed.prices.length > 0}
-										<div class="text-right">
+										<div>
 											{#each ed.prices as price (price.currency + price.territory)}
-												<div class="text-base font-bold text-foreground">
+												<div class="text-lg font-bold tracking-tight text-foreground">
 													{formatPrice(price.amountInCents, price.currency)}
 												</div>
 												<span class="text-[10px] text-muted-foreground uppercase"
@@ -328,12 +366,9 @@
 										</div>
 									{/if}
 
-									<div
-										class="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400"
-									>
-										<CheckCircle2 class="h-3.5 w-3.5" />
-										{ed.status}
-									</div>
+									<Button size="sm" class="cursor-pointer bg-[#0D5C63] text-white hover:bg-[#094a50]">
+										Get Edition
+									</Button>
 								</div>
 							</div>
 						{/each}
