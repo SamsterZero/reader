@@ -227,180 +227,180 @@
 				</div>
 			</div>
 		{:else if titleDetail}
-			<div class="md:grid md:grid-cols-12 md:items-start md:gap-8 lg:gap-10">
-				<!-- Left Sidebar: Cover Artwork & Quick Metadata (Desktop & iPad Mini Sticky) -->
-				<div
-					class="flex flex-col items-center space-y-4 md:items-start md:sticky md:top-20 md:col-span-4 lg:col-span-3 2xl:col-span-2"
-				>
+			<div class="space-y-10">
+				<!-- Hero Section: Cover Artwork + Primary Product Info (Side-by-side on iPad & Desktop) -->
+				<div class="flex flex-col items-center gap-6 sm:flex-row sm:items-start md:gap-8 lg:gap-10">
 					<!-- Cover Artwork -->
 					<div
-						class="mx-auto flex aspect-[2/3] w-48 max-w-[260px] flex-col items-center justify-center overflow-hidden rounded-xl border border-border bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-6 text-center text-white shadow-xl transition-all duration-300 hover:shadow-2xl sm:w-56 md:mx-0 md:w-full lg:max-w-[280px]"
+						class="flex aspect-[2/3] w-48 shrink-0 max-w-[280px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-6 text-center text-white shadow-2xl transition-all duration-300 hover:shadow-primary/20 sm:w-56 lg:w-64"
 					>
 						<span class="text-7xl font-bold lg:text-8xl"
 							>{titleDetail.title.charAt(0).toUpperCase()}</span
 						>
 					</div>
 
-					<!-- Quick Metadata Badges -->
-					<div class="flex flex-wrap items-center justify-center gap-2 md:justify-start">
-						{#if titleDetail.language}
+					<!-- Hero Primary Info & Purchasing Actions -->
+					<div class="w-full flex-1 space-y-4 text-center sm:text-left">
+						<!-- Title & Author -->
+						<div class="space-y-1.5">
+							<h1 class="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+								{titleDetail.title}
+							</h1>
+
+							{#if authorNames}
+								<p class="text-lg font-medium text-foreground/80 sm:text-xl">
+									by <span class="font-semibold text-primary">{authorNames}</span>
+								</p>
+							{/if}
+						</div>
+
+						<!-- Metadata Badges -->
+						<div class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+							{#if titleDetail.language}
+								<span
+									class="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+								>
+									<Globe class="h-3.5 w-3.5" />
+									{titleDetail.language.toUpperCase()}
+								</span>
+							{/if}
 							<span
-								class="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+								class="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400"
 							>
-								<Globe class="h-3.5 w-3.5" />
-								{titleDetail.language.toUpperCase()}
-							</span>
-						{/if}
-						<span
-							class="inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400"
-						>
-							<CheckCircle2 class="h-3.5 w-3.5" />
-							DRM-Free EPUB
-						</span>
-					</div>
-				</div>
-
-				<!-- Right Main Column: Title, Author, Description, Price Bar, Editions, Contributors -->
-				<div class="mt-6 space-y-6 md:col-span-8 md:mt-0 lg:col-span-9 2xl:col-span-10">
-					<!-- Title & Author Header -->
-					<div class="space-y-2 text-center md:text-left">
-						<h1 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-							{titleDetail.title}
-						</h1>
-
-						{#if authorNames}
-							<p class="text-lg font-semibold text-foreground/90 sm:text-xl">
-								by <span class="text-primary">{authorNames}</span>
-							</p>
-						{/if}
-					</div>
-
-					<!-- Description -->
-					{#if titleDetail.description}
-						<p class="text-sm leading-relaxed text-foreground/90 sm:text-base">
-							{titleDetail.description}
-						</p>
-					{/if}
-
-					<!-- Price & Purchase Action -->
-					<div
-						class="flex flex-col items-center gap-3 sm:flex-row sm:items-center md:justify-start sm:gap-6"
-					>
-						<div class="flex items-baseline gap-2 text-center md:text-left">
-							<span class="text-3xl font-bold tracking-tight text-foreground lg:text-4xl">
-								{heroPrice}
-							</span>
-							<span class="text-xs font-medium text-muted-foreground">
-								(Digital EPUB · DRM-Free)
+								<CheckCircle2 class="h-3.5 w-3.5" />
+								DRM-Free EPUB
 							</span>
 						</div>
 
-						<Button
-							size="lg"
-							class="w-full cursor-pointer gap-2 bg-[#0D5C63] text-white hover:bg-[#094a50] sm:w-auto"
-						>
-							<ShoppingBag class="h-5 w-5" />
-							Buy Now
-						</Button>
-					</div>
+						<!-- Description Paragraph -->
+						{#if titleDetail.description}
+							<p class="max-w-4xl text-sm leading-relaxed text-foreground/90 sm:text-base">
+								{titleDetail.description}
+							</p>
+						{/if}
 
-					<!-- Available Editions Section -->
-					{#if titleDetail.editions && titleDetail.editions.length > 0}
-						<section class="pt-2">
-							<h2 class="mb-4 flex items-center gap-2 text-lg font-semibold text-foreground">
-								<Tag class="h-5 w-5 text-primary" />
-								Available Editions ({titleDetail.editions.length})
-							</h2>
-
+						<!-- Price & Buy Action Bar -->
+						<div class="pt-2">
 							<div
-								class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6"
+								class="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-start"
 							>
-								{#each titleDetail.editions as ed (ed.id)}
-									<div
-										class="flex flex-col justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-xs transition-shadow hover:shadow-md"
-									>
-										<div class="space-y-2">
-											<div class="flex flex-wrap items-center gap-2">
-												<span class="font-bold text-foreground">{ed.format}</span>
-												<span
-													class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary"
-												>
-													Edition #{ed.editionNumber}
-												</span>
-												<span
-													class="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400"
-												>
-													DRM-Free
-												</span>
-											</div>
+								<div class="flex items-baseline gap-2 text-center sm:text-left">
+									<span class="text-3xl font-bold tracking-tight text-foreground lg:text-4xl">
+										{heroPrice}
+									</span>
+									<span class="text-xs font-medium text-muted-foreground">
+										(Digital EPUB · DRM-Free)
+									</span>
+								</div>
 
-											{#if ed.publishedDate}
-												<p class="flex items-center gap-1.5 text-xs text-muted-foreground">
-													<Calendar class="h-3.5 w-3.5 text-muted-foreground/70" />
-													Published {ed.publishedDate}
-												</p>
-											{/if}
-
-											{#if ed.isbn}
-												<p class="font-mono text-[11px] text-muted-foreground/70">
-													ISBN {ed.isbn}
-												</p>
-											{/if}
-										</div>
-
-										<div class="flex items-center justify-between pt-1">
-											{#if ed.prices && ed.prices.length > 0}
-												<div>
-													{#each ed.prices as price (price.currency + price.territory)}
-														<div class="text-lg font-bold tracking-tight text-foreground">
-															{formatPrice(price.amountInCents, price.currency)}
-														</div>
-														<span class="text-[10px] uppercase text-muted-foreground"
-															>{price.territory}</span
-														>
-													{/each}
-												</div>
-											{/if}
-
-											<Button size="sm" class="cursor-pointer bg-[#0D5C63] text-white hover:bg-[#094a50]">
-												Get Edition
-											</Button>
-										</div>
-									</div>
-								{/each}
+								<Button
+									size="lg"
+									class="w-full cursor-pointer gap-2 bg-[#0D5C63] px-8 text-white shadow-md hover:bg-[#094a50] sm:w-auto"
+								>
+									<ShoppingBag class="h-5 w-5" />
+									Buy Now
+								</Button>
 							</div>
-						</section>
-					{/if}
+						</div>
+					</div>
+				</div>
 
-					<!-- Contributors Section -->
-					{#if titleDetail.contributors && titleDetail.contributors.length > 0}
-						<section class="pt-2">
-							<h2 class="mb-4 flex items-center gap-2 text-lg font-semibold text-foreground">
-								<User class="h-5 w-5 text-primary" />
-								Contributors ({titleDetail.contributors.length})
-							</h2>
-							<div
-								class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6"
-							>
-								{#each titleDetail.contributors as contrib (contrib.id)}
-									<div class="rounded-lg border border-border bg-card p-3.5 shadow-xs">
-										<div class="flex items-center justify-between">
-											<h3 class="text-sm font-semibold text-foreground">{contrib.name}</h3>
+				<!-- Available Editions Section (Full-Width Responsive Grid) -->
+				{#if titleDetail.editions && titleDetail.editions.length > 0}
+					<section class="space-y-4">
+						<h2 class="flex items-center gap-2 text-xl font-bold text-foreground">
+							<Tag class="h-5 w-5 text-primary" />
+							Available Editions ({titleDetail.editions.length})
+						</h2>
+
+						<div
+							class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
+						>
+							{#each titleDetail.editions as ed (ed.id)}
+								<div
+									class="flex flex-col justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-xs transition-all hover:border-primary/40 hover:shadow-md"
+								>
+									<div class="space-y-2">
+										<div class="flex flex-wrap items-center gap-2">
+											<span class="font-bold text-foreground">{ed.format}</span>
 											<span
-												class="rounded bg-muted px-2 py-0.5 text-[11px] font-medium uppercase text-muted-foreground"
+												class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary"
 											>
-												{contrib.role}
+												Edition #{ed.editionNumber}
+											</span>
+											<span
+												class="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400"
+											>
+												DRM-Free
 											</span>
 										</div>
-										{#if contrib.bio}
-											<p class="mt-1 line-clamp-2 text-xs text-muted-foreground">{contrib.bio}</p>
+
+										{#if ed.publishedDate}
+											<p class="flex items-center gap-1.5 text-xs text-muted-foreground">
+												<Calendar class="h-3.5 w-3.5 text-muted-foreground/70" />
+												Published {ed.publishedDate}
+											</p>
+										{/if}
+
+										{#if ed.isbn}
+											<p class="font-mono text-[11px] text-muted-foreground/70">
+												ISBN {ed.isbn}
+											</p>
 										{/if}
 									</div>
-								{/each}
-							</div>
-						</section>
-					{/if}
-				</div>
+
+									<div class="flex items-center justify-between pt-1">
+										{#if ed.prices && ed.prices.length > 0}
+											<div>
+												{#each ed.prices as price (price.currency + price.territory)}
+													<div class="text-lg font-bold tracking-tight text-foreground">
+														{formatPrice(price.amountInCents, price.currency)}
+													</div>
+													<span class="text-[10px] uppercase text-muted-foreground"
+														>{price.territory}</span
+													>
+												{/each}
+											</div>
+										{/if}
+
+										<Button size="sm" class="cursor-pointer bg-[#0D5C63] text-white hover:bg-[#094a50]">
+											Get Edition
+										</Button>
+									</div>
+								</div>
+							{/each}
+						</div>
+					</section>
+				{/if}
+
+				<!-- Contributors Section (Full-Width Responsive Grid) -->
+				{#if titleDetail.contributors && titleDetail.contributors.length > 0}
+					<section class="space-y-4">
+						<h2 class="flex items-center gap-2 text-xl font-bold text-foreground">
+							<User class="h-5 w-5 text-primary" />
+							Contributors ({titleDetail.contributors.length})
+						</h2>
+						<div
+							class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
+						>
+							{#each titleDetail.contributors as contrib (contrib.id)}
+								<div class="rounded-xl border border-border bg-card p-4 shadow-xs">
+									<div class="flex items-center justify-between">
+										<h3 class="text-sm font-semibold text-foreground">{contrib.name}</h3>
+										<span
+											class="rounded bg-muted px-2 py-0.5 text-[11px] font-medium uppercase text-muted-foreground"
+										>
+											{contrib.role}
+										</span>
+									</div>
+									{#if contrib.bio}
+										<p class="mt-1.5 line-clamp-2 text-xs text-muted-foreground">{contrib.bio}</p>
+									{/if}
+								</div>
+							{/each}
+						</div>
+					</section>
+				{/if}
 			</div>
 		{/if}
 	</main>
