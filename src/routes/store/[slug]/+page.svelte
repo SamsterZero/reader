@@ -218,26 +218,26 @@
 
 		{#if loading}
 			<div class="animate-pulse space-y-6">
-				<div class="flex flex-col gap-6 sm:flex-row sm:items-start">
-					<div class="h-56 w-40 shrink-0 rounded-xl bg-muted"></div>
-					<div class="flex-1 space-y-3">
-						<div class="h-6 w-3/4 rounded bg-muted"></div>
-						<div class="h-4 w-1/2 rounded bg-muted"></div>
+				<div class="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
+					<div class="mx-auto sm:mx-0 h-56 w-40 shrink-0 rounded-xl bg-muted"></div>
+					<div class="w-full flex-1 space-y-3">
+						<div class="mx-auto sm:mx-0 h-6 w-3/4 rounded bg-muted"></div>
+						<div class="mx-auto sm:mx-0 h-4 w-1/2 rounded bg-muted"></div>
 						<div class="h-20 w-full rounded bg-muted"></div>
 					</div>
 				</div>
 			</div>
 		{:else if titleDetail}
 			<!-- Book Hero Header -->
-			<div class="flex flex-col gap-6 sm:flex-row sm:items-start">
+			<div class="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
 				<div
-					class="flex h-56 w-40 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl border border-border bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-4 text-center text-white shadow-md"
+					class="mx-auto sm:mx-0 flex h-56 w-40 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl border border-border bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-4 text-center text-white shadow-md"
 				>
 					<span class="text-6xl font-bold">{titleDetail.title.charAt(0).toUpperCase()}</span>
 				</div>
 
-				<div class="flex-1 space-y-2">
-					<div class="flex items-center gap-2">
+				<div class="flex-1 space-y-2 text-center sm:text-left">
+					<div class="flex items-center justify-center gap-2 sm:justify-start">
 						{#if titleDetail.language}
 							<span
 								class="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary"
