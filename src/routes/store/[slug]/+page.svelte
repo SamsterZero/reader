@@ -182,7 +182,9 @@
 								<RefreshCw class="mr-2 h-3.5 w-3.5" />
 								Retry
 							</Button>
-							<Button variant="ghost" size="sm" onclick={() => goto(resolve('/'))}>Go to Library</Button>
+							<Button variant="ghost" size="sm" onclick={() => goto(resolve('/'))}
+								>Go to Library</Button
+							>
 						</div>
 					</div>
 				</div>
