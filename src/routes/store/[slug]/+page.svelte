@@ -304,33 +304,6 @@
 						</Button>
 					</div>
 
-					<!-- Contributors Section -->
-					{#if titleDetail.contributors && titleDetail.contributors.length > 0}
-						<section class="pt-2">
-							<h2 class="mb-4 flex items-center gap-2 text-lg font-semibold text-foreground">
-								<User class="h-5 w-5 text-primary" />
-								Contributors ({titleDetail.contributors.length})
-							</h2>
-							<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4">
-								{#each titleDetail.contributors as contrib (contrib.id)}
-									<div class="rounded-lg border border-border bg-card p-3.5 shadow-xs">
-										<div class="flex items-center justify-between">
-											<h3 class="text-sm font-semibold text-foreground">{contrib.name}</h3>
-											<span
-												class="rounded bg-muted px-2 py-0.5 text-[11px] font-medium uppercase text-muted-foreground"
-											>
-												{contrib.role}
-											</span>
-										</div>
-										{#if contrib.bio}
-											<p class="mt-1 line-clamp-2 text-xs text-muted-foreground">{contrib.bio}</p>
-										{/if}
-									</div>
-								{/each}
-							</div>
-						</section>
-					{/if}
-
 					<!-- Available Editions Section -->
 					{#if titleDetail.editions && titleDetail.editions.length > 0}
 						<section class="pt-2">
@@ -391,6 +364,33 @@
 												Get Edition
 											</Button>
 										</div>
+									</div>
+								{/each}
+							</div>
+						</section>
+					{/if}
+
+					<!-- Contributors Section -->
+					{#if titleDetail.contributors && titleDetail.contributors.length > 0}
+						<section class="pt-2">
+							<h2 class="mb-4 flex items-center gap-2 text-lg font-semibold text-foreground">
+								<User class="h-5 w-5 text-primary" />
+								Contributors ({titleDetail.contributors.length})
+							</h2>
+							<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4">
+								{#each titleDetail.contributors as contrib (contrib.id)}
+									<div class="rounded-lg border border-border bg-card p-3.5 shadow-xs">
+										<div class="flex items-center justify-between">
+											<h3 class="text-sm font-semibold text-foreground">{contrib.name}</h3>
+											<span
+												class="rounded bg-muted px-2 py-0.5 text-[11px] font-medium uppercase text-muted-foreground"
+											>
+												{contrib.role}
+											</span>
+										</div>
+										{#if contrib.bio}
+											<p class="mt-1 line-clamp-2 text-xs text-muted-foreground">{contrib.bio}</p>
+										{/if}
 									</div>
 								{/each}
 							</div>
