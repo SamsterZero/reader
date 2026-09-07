@@ -305,7 +305,7 @@
 					</div>
 				</div>
 
-				<!-- Available Editions Section (Full-Width Responsive Grid) -->
+				<!-- Available Editions Section (Full-Width Responsive Rich Tiled Grid) -->
 				{#if titleDetail.editions && titleDetail.editions.length > 0}
 					<section class="space-y-4 pt-2">
 						<h2 class="flex items-center gap-2 text-xl font-bold text-foreground">
@@ -318,7 +318,7 @@
 						>
 							{#each titleDetail.editions as ed (ed.id)}
 								<div
-									class="flex flex-col justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-xs transition-shadow hover:border-primary/40 hover:shadow-md"
+									class="flex flex-col justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-xs transition-all hover:border-primary/40 hover:shadow-md"
 								>
 									<div class="space-y-2">
 										<div class="flex flex-wrap items-center gap-2">
@@ -373,7 +373,7 @@
 					</section>
 				{/if}
 
-				<!-- Contributors Section (Full-Width Responsive Grid) -->
+				<!-- Contributors Section (Full-Width Responsive Rich Tiled Grid) -->
 				{#if titleDetail.contributors && titleDetail.contributors.length > 0}
 					<section class="space-y-4 pt-2">
 						<h2 class="flex items-center gap-2 text-xl font-bold text-foreground">
