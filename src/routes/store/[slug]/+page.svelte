@@ -227,14 +227,14 @@
 				</div>
 			</div>
 		{:else if titleDetail}
-			<div class="lg:grid lg:grid-cols-12 lg:items-start lg:gap-8">
-				<!-- Left Sidebar: Cover Artwork & Quick Metadata (Desktop Sticky) -->
+			<div class="md:grid md:grid-cols-12 md:items-start md:gap-8 lg:gap-10">
+				<!-- Left Sidebar: Cover Artwork & Quick Metadata (Desktop & iPad Mini Sticky) -->
 				<div
-					class="flex flex-col items-center space-y-4 sm:items-start lg:sticky lg:top-20 lg:col-span-4 xl:col-span-3"
+					class="flex flex-col items-center space-y-4 md:items-start md:sticky md:top-20 md:col-span-4 lg:col-span-3 2xl:col-span-2"
 				>
 					<!-- Cover Artwork -->
 					<div
-						class="mx-auto flex aspect-[2/3] w-48 max-w-[280px] flex-col items-center justify-center overflow-hidden rounded-xl border border-border bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-6 text-center text-white shadow-xl transition-all duration-300 hover:shadow-2xl sm:mx-0 sm:w-56 lg:w-full"
+						class="mx-auto flex aspect-[2/3] w-48 max-w-[260px] flex-col items-center justify-center overflow-hidden rounded-xl border border-border bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-6 text-center text-white shadow-xl transition-all duration-300 hover:shadow-2xl sm:w-56 md:mx-0 md:w-full lg:max-w-[280px]"
 					>
 						<span class="text-7xl font-bold lg:text-8xl"
 							>{titleDetail.title.charAt(0).toUpperCase()}</span
@@ -242,7 +242,7 @@
 					</div>
 
 					<!-- Quick Metadata Badges -->
-					<div class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+					<div class="flex flex-wrap items-center justify-center gap-2 md:justify-start">
 						{#if titleDetail.language}
 							<span
 								class="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
@@ -260,10 +260,10 @@
 					</div>
 				</div>
 
-				<!-- Right Main Column: Title, Author, Description, Price Bar, Contributors, Editions -->
-				<div class="mt-6 space-y-6 lg:col-span-8 lg:mt-0 xl:col-span-9">
+				<!-- Right Main Column: Title, Author, Description, Price Bar, Editions, Contributors -->
+				<div class="mt-6 space-y-6 md:col-span-8 md:mt-0 lg:col-span-9 2xl:col-span-10">
 					<!-- Title & Author Header -->
-					<div class="space-y-2 text-center sm:text-left">
+					<div class="space-y-2 text-center md:text-left">
 						<h1 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
 							{titleDetail.title}
 						</h1>
@@ -284,9 +284,9 @@
 
 					<!-- Price & Purchase Action -->
 					<div
-						class="flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:justify-start sm:gap-6"
+						class="flex flex-col items-center gap-3 sm:flex-row sm:items-center md:justify-start sm:gap-6"
 					>
-						<div class="flex items-baseline gap-2 text-center sm:text-left">
+						<div class="flex items-baseline gap-2 text-center md:text-left">
 							<span class="text-3xl font-bold tracking-tight text-foreground lg:text-4xl">
 								{heroPrice}
 							</span>
@@ -312,7 +312,9 @@
 								Available Editions ({titleDetail.editions.length})
 							</h2>
 
-							<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4">
+							<div
+								class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6"
+							>
 								{#each titleDetail.editions as ed (ed.id)}
 									<div
 										class="flex flex-col justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-xs transition-shadow hover:shadow-md"
@@ -377,7 +379,9 @@
 								<User class="h-5 w-5 text-primary" />
 								Contributors ({titleDetail.contributors.length})
 							</h2>
-							<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4">
+							<div
+								class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6"
+							>
 								{#each titleDetail.contributors as contrib (contrib.id)}
 									<div class="rounded-lg border border-border bg-card p-3.5 shadow-xs">
 										<div class="flex items-center justify-between">
