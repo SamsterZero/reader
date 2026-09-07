@@ -144,7 +144,7 @@
 	<header
 		class="sticky top-0 z-30 border-b border-border/40 bg-background/80 px-4 pt-4 pb-3 backdrop-blur-md"
 	>
-		<div class="mx-auto max-w-7xl">
+		<div class="w-full">
 			<TopBar {darkMode} {showInstall} onTheme={toggleDarkMode} onInstall={handleInstall} />
 
 			<!-- Search and Filter Bar -->
@@ -189,7 +189,7 @@
 		</div>
 	</header>
 
-	<main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+	<main class="w-full px-4 py-4">
 
 		{#if isOffline}
 			<div

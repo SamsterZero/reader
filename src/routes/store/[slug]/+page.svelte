@@ -143,12 +143,12 @@
 	<header
 		class="sticky top-0 z-30 border-b border-border/40 bg-background/80 px-4 py-3 backdrop-blur-md"
 	>
-		<div class="mx-auto max-w-7xl [&_nav]:mb-0">
+		<div class="w-full [&_nav]:mb-0">
 			<TopBar {darkMode} {showInstall} onTheme={toggleDarkMode} onInstall={handleInstall} />
 		</div>
 	</header>
 
-	<main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+	<main class="w-full px-4 py-4">
 		<div class="mb-6">
 			<Button
 				variant="ghost"
@@ -227,14 +227,14 @@
 				</div>
 			</div>
 		{:else if titleDetail}
-			<div class="md:grid md:grid-cols-12 md:items-start md:gap-8">
-				<!-- Left Sidebar: Cover Artwork & Quick Metadata (Desktop & Tablet Sticky) -->
+			<div class="lg:grid lg:grid-cols-12 lg:items-start lg:gap-8">
+				<!-- Left Sidebar: Cover Artwork & Quick Metadata (Desktop Sticky) -->
 				<div
-					class="flex flex-col items-center space-y-4 md:items-start md:sticky md:top-20 md:col-span-4 xl:col-span-3"
+					class="flex flex-col items-center space-y-4 sm:items-start lg:sticky lg:top-20 lg:col-span-4 xl:col-span-3"
 				>
 					<!-- Cover Artwork -->
 					<div
-						class="mx-auto flex aspect-[2/3] w-48 max-w-[260px] flex-col items-center justify-center overflow-hidden rounded-xl border border-border bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-6 text-center text-white shadow-xl transition-all duration-300 hover:shadow-2xl sm:w-52 md:mx-0 md:w-full lg:max-w-[280px]"
+						class="mx-auto flex aspect-[2/3] w-48 max-w-[280px] flex-col items-center justify-center overflow-hidden rounded-xl border border-border bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-6 text-center text-white shadow-xl transition-all duration-300 hover:shadow-2xl sm:mx-0 sm:w-56 lg:w-full"
 					>
 						<span class="text-7xl font-bold lg:text-8xl"
 							>{titleDetail.title.charAt(0).toUpperCase()}</span
@@ -242,7 +242,7 @@
 					</div>
 
 					<!-- Quick Metadata Badges -->
-					<div class="flex flex-wrap items-center justify-center gap-2 md:justify-start">
+					<div class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
 						{#if titleDetail.language}
 							<span
 								class="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
@@ -260,10 +260,10 @@
 					</div>
 				</div>
 
-				<!-- Right Main Column: Title, Author, Description, Price Bar, Editions, Contributors -->
-				<div class="mt-6 space-y-6 md:col-span-8 md:mt-0 xl:col-span-9">
+				<!-- Right Main Column: Title, Author, Description, Price Bar, Contributors, Editions -->
+				<div class="mt-6 space-y-6 lg:col-span-8 lg:mt-0 xl:col-span-9">
 					<!-- Title & Author Header -->
-					<div class="space-y-2 text-center md:text-left">
+					<div class="space-y-2 text-center sm:text-left">
 						<h1 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
 							{titleDetail.title}
 						</h1>
@@ -284,9 +284,9 @@
 
 					<!-- Price & Purchase Action -->
 					<div
-						class="flex flex-col items-center gap-3 sm:flex-row sm:items-center md:justify-start sm:gap-6"
+						class="flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:justify-start sm:gap-6"
 					>
-						<div class="flex items-baseline gap-2 text-center md:text-left">
+						<div class="flex items-baseline gap-2 text-center sm:text-left">
 							<span class="text-3xl font-bold tracking-tight text-foreground lg:text-4xl">
 								{heroPrice}
 							</span>
