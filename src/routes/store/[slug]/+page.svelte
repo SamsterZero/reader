@@ -227,180 +227,256 @@
 				</div>
 			</div>
 		{:else if titleDetail}
-			<div class="space-y-10">
-				<!-- Hero Block: Integrated Cover Artwork + Title, Author, Description & Price Action -->
-				<div class="flex flex-col items-center gap-6 sm:flex-row sm:items-start md:gap-8 lg:gap-10">
-					<!-- Cover Artwork -->
+			<div class="space-y-8">
+				<!-- Top Hero Card: Cover Artwork + Title, Subtitle, Author, Description & Price Action -->
+				<div
+					class="w-full rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8 lg:p-10"
+				>
 					<div
-						class="flex aspect-[2/3] w-44 shrink-0 max-w-[260px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-6 text-center text-white shadow-xl transition-all duration-300 hover:shadow-2xl sm:w-52 lg:w-60"
+						class="flex flex-col items-center gap-6 sm:flex-row sm:items-start md:gap-8 lg:gap-10"
 					>
-						<span class="text-7xl font-bold lg:text-8xl"
-							>{titleDetail.title.charAt(0).toUpperCase()}</span
+						<!-- Cover Artwork -->
+						<div
+							class="flex aspect-[2/3] w-44 shrink-0 max-w-[260px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-6 text-center text-white shadow-xl transition-all duration-300 hover:shadow-2xl sm:w-52 lg:w-60"
 						>
-					</div>
+							<span class="text-7xl font-bold lg:text-8xl"
+								>{titleDetail.title.charAt(0).toUpperCase()}</span
+							>
+						</div>
 
-					<!-- Title, Author, Badges, Description & Purchase Action -->
-					<div class="w-full flex-1 space-y-4 text-center sm:text-left">
-						<!-- Title & Author -->
-						<div class="space-y-2">
-							<h1 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-								{titleDetail.title}
-							</h1>
+						<!-- Title, Author, Badges, Description & Purchase Action -->
+						<div class="w-full flex-1 space-y-4 text-center sm:text-left">
+							<!-- Title & Author -->
+							<div class="space-y-1.5">
+								<h1
+									class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
+								>
+									{titleDetail.title}
+								</h1>
 
-							{#if authorNames}
-								<p class="text-lg font-semibold text-foreground/90 sm:text-xl">
-									by <span class="text-primary">{authorNames}</span>
+								{#if titleDetail.subtitle}
+									<p class="text-base font-medium text-muted-foreground sm:text-lg">
+										{titleDetail.subtitle}
+									</p>
+								{/if}
+
+								{#if authorNames}
+									<p class="pt-1 text-lg font-semibold text-foreground/90 sm:text-xl">
+										by <span class="text-primary">{authorNames}</span>
+									</p>
+								{/if}
+							</div>
+
+							<!-- Metadata Badges -->
+							<div class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+								{#if titleDetail.language}
+									<span
+										class="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+									>
+										<Globe class="h-3.5 w-3.5" />
+										Language: {titleDetail.language.toUpperCase()}
+									</span>
+								{/if}
+								<span
+									class="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400"
+								>
+									<CheckCircle2 class="h-3.5 w-3.5" />
+									DRM-Free EPUB
+								</span>
+							</div>
+
+							<!-- Description -->
+							{#if titleDetail.description}
+								<p class="max-w-4xl text-sm leading-relaxed text-foreground/90 sm:text-base">
+									{titleDetail.description}
 								</p>
 							{/if}
-						</div>
 
-						<!-- Metadata Badges -->
-						<div class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-							{#if titleDetail.language}
-								<span
-									class="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+							<!-- Price & Purchase Action -->
+							<div class="pt-3">
+								<div
+									class="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-start"
 								>
-									<Globe class="h-3.5 w-3.5" />
-									{titleDetail.language.toUpperCase()}
-								</span>
-							{/if}
-							<span
-								class="inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400"
-							>
-								<CheckCircle2 class="h-3.5 w-3.5" />
-								DRM-Free EPUB
-							</span>
-						</div>
+									<div class="flex items-baseline gap-2 text-center sm:text-left">
+										<span class="text-3xl font-bold tracking-tight text-foreground lg:text-4xl">
+											{heroPrice}
+										</span>
+										<span class="text-xs font-medium text-muted-foreground">
+											(Digital EPUB · DRM-Free)
+										</span>
+									</div>
 
-						<!-- Description -->
-						{#if titleDetail.description}
-							<p class="max-w-4xl text-sm leading-relaxed text-foreground/90 sm:text-base">
-								{titleDetail.description}
-							</p>
-						{/if}
-
-						<!-- Price & Purchase Action -->
-						<div class="pt-2">
-							<div
-								class="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-start"
-							>
-								<div class="flex items-baseline gap-2 text-center sm:text-left">
-									<span class="text-3xl font-bold tracking-tight text-foreground lg:text-4xl">
-										{heroPrice}
-									</span>
-									<span class="text-xs font-medium text-muted-foreground">
-										(Digital EPUB · DRM-Free)
-									</span>
+									<Button
+										size="lg"
+										class="w-full cursor-pointer gap-2 bg-[#0D5C63] px-8 text-white shadow-md hover:bg-[#094a50] sm:w-auto"
+									>
+										<ShoppingBag class="h-5 w-5" />
+										Buy Now
+									</Button>
 								</div>
-
-								<Button
-									size="lg"
-									class="w-full cursor-pointer gap-2 bg-[#0D5C63] px-8 text-white shadow-md hover:bg-[#094a50] sm:w-auto"
-								>
-									<ShoppingBag class="h-5 w-5" />
-									Buy Now
-								</Button>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<!-- Available Editions Section (Option 3: Horizontal Carousel Strip) -->
-				{#if titleDetail.editions && titleDetail.editions.length > 0}
-					<section class="space-y-4 pt-2">
-						<h2 class="flex items-center gap-2 text-xl font-bold text-foreground">
-							<Tag class="h-5 w-5 text-primary" />
-							Available Editions ({titleDetail.editions.length})
+				<!-- Structured Information Grid: Responsive 3-Column Layout on Desktop/Ultrawide, 2-Column on Tablet -->
+				<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+					<!-- Card 1: Book Specifications -->
+					<div class="flex flex-col rounded-xl border border-border bg-card p-6 shadow-xs">
+						<h2 class="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
+							<BookOpen class="h-5 w-5 text-primary" />
+							Book Specifications
 						</h2>
 
-						<div
-							class="flex snap-x snap-mandatory overflow-x-auto gap-4 pb-4 pt-1 scrollbar-thin scrollbar-thumb-muted-foreground/20"
-						>
-							{#each titleDetail.editions as ed (ed.id)}
-								<div
-									class="flex w-72 shrink-0 snap-start flex-col justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-xs transition-all hover:border-primary/40 hover:shadow-md"
-								>
-									<div class="space-y-2">
-										<div class="flex flex-wrap items-center gap-2">
-											<span class="font-bold text-foreground">{ed.format}</span>
-											<span
-												class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary"
-											>
-												Edition #{ed.editionNumber}
-											</span>
-											<span
-												class="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400"
-											>
-												DRM-Free
-											</span>
+						<div class="grid grid-cols-2 gap-4 text-sm">
+							<div class="space-y-1">
+								<span class="text-xs font-medium text-muted-foreground">Language</span>
+								<p class="font-semibold text-foreground">
+									{titleDetail.language ? titleDetail.language.toUpperCase() : 'N/A'}
+								</p>
+							</div>
+
+							<div class="space-y-1">
+								<span class="text-xs font-medium text-muted-foreground">Format</span>
+								<p class="font-semibold text-foreground">
+									{titleDetail.editions?.[0]?.format || 'Digital EPUB'}
+								</p>
+							</div>
+
+							<div class="space-y-1">
+								<span class="text-xs font-medium text-muted-foreground">DRM Protection</span>
+								<p class="font-semibold text-emerald-600 dark:text-emerald-400">DRM-Free</p>
+							</div>
+
+							<div class="space-y-1">
+								<span class="text-xs font-medium text-muted-foreground">Publication Date</span>
+								<p class="font-semibold text-foreground">
+									{titleDetail.editions?.[0]?.publishedDate || 'N/A'}
+								</p>
+							</div>
+
+							<div class="space-y-1 col-span-2">
+								<span class="text-xs font-medium text-muted-foreground">ISBN</span>
+								<p class="font-mono font-semibold text-foreground">
+									{titleDetail.editions?.[0]?.isbn || 'N/A'}
+								</p>
+							</div>
+
+							<div class="space-y-1 col-span-2">
+								<span class="text-xs font-medium text-muted-foreground">Delivery & Sync</span>
+								<p class="text-xs text-foreground">
+									Instant PWA Reader Sync · Read Offline Anytime
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- Card 2: Available Editions -->
+					{#if titleDetail.editions && titleDetail.editions.length > 0}
+						<div class="flex flex-col rounded-xl border border-border bg-card p-6 shadow-xs">
+							<h2 class="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
+								<Tag class="h-5 w-5 text-primary" />
+								Available Editions ({titleDetail.editions.length})
+							</h2>
+
+							<div class="space-y-4">
+								{#each titleDetail.editions as ed (ed.id)}
+									<div
+										class="flex flex-col justify-between gap-3 rounded-lg border border-border/80 bg-background/50 p-4 transition-all hover:border-primary/40"
+									>
+										<div class="space-y-1.5">
+											<div class="flex items-center justify-between">
+												<span class="font-bold text-foreground">{ed.format}</span>
+												<span
+													class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary"
+												>
+													Edition #{ed.editionNumber}
+												</span>
+											</div>
+
+											{#if ed.publishedDate}
+												<p class="flex items-center gap-1.5 text-xs text-muted-foreground">
+													<Calendar class="h-3.5 w-3.5 text-muted-foreground/70" />
+													Published {ed.publishedDate}
+												</p>
+											{/if}
+
+											{#if ed.isbn}
+												<p class="font-mono text-xs text-muted-foreground/70">
+													ISBN {ed.isbn}
+												</p>
+											{/if}
 										</div>
 
-										{#if ed.publishedDate}
-											<p class="flex items-center gap-1.5 text-xs text-muted-foreground">
-												<Calendar class="h-3.5 w-3.5 text-muted-foreground/70" />
-												Published {ed.publishedDate}
-											</p>
-										{/if}
+										<div class="flex items-center justify-between pt-2 border-t border-border/40">
+											{#if ed.prices && ed.prices.length > 0}
+												<div>
+													{#each ed.prices as price (price.currency + price.territory)}
+														<div class="text-lg font-bold tracking-tight text-foreground">
+															{formatPrice(price.amountInCents, price.currency)}
+														</div>
+														<span class="text-[10px] uppercase text-muted-foreground"
+															>{price.territory}</span
+														>
+													{/each}
+												</div>
+											{/if}
 
-										{#if ed.isbn}
-											<p class="font-mono text-[11px] text-muted-foreground/70">
-												ISBN {ed.isbn}
-											</p>
-										{/if}
+											<Button size="sm" class="cursor-pointer bg-[#0D5C63] text-white hover:bg-[#094a50]">
+												Get Edition
+											</Button>
+										</div>
 									</div>
-
-									<div class="flex items-center justify-between pt-1">
-										{#if ed.prices && ed.prices.length > 0}
-											<div>
-												{#each ed.prices as price (price.currency + price.territory)}
-													<div class="text-lg font-bold tracking-tight text-foreground">
-														{formatPrice(price.amountInCents, price.currency)}
-													</div>
-													<span class="text-[10px] uppercase text-muted-foreground"
-														>{price.territory}</span
-													>
-												{/each}
-											</div>
-										{/if}
-
-										<Button size="sm" class="cursor-pointer bg-[#0D5C63] text-white hover:bg-[#094a50]">
-											Get Edition
-										</Button>
-									</div>
-								</div>
-							{/each}
+								{/each}
+							</div>
 						</div>
-					</section>
-				{/if}
+					{/if}
 
-				<!-- Contributors Section (Option 3: Horizontal Carousel Strip) -->
-				{#if titleDetail.contributors && titleDetail.contributors.length > 0}
-					<section class="space-y-4 pt-2">
-						<h2 class="flex items-center gap-2 text-xl font-bold text-foreground">
-							<User class="h-5 w-5 text-primary" />
-							Contributors ({titleDetail.contributors.length})
-						</h2>
+					<!-- Card 3: Authors & Contributors -->
+					{#if titleDetail.contributors && titleDetail.contributors.length > 0}
 						<div
-							class="flex snap-x snap-mandatory overflow-x-auto gap-4 pb-4 pt-1 scrollbar-thin scrollbar-thumb-muted-foreground/20"
+							class="flex flex-col rounded-xl border border-border bg-card p-6 shadow-xs md:col-span-2 lg:col-span-1"
 						>
-							{#each titleDetail.contributors as contrib (contrib.id)}
-								<div class="w-64 shrink-0 snap-start rounded-lg border border-border bg-card p-3.5 shadow-xs hover:border-primary/40 transition-all">
-									<div class="flex items-center justify-between">
-										<h3 class="text-sm font-semibold text-foreground">{contrib.name}</h3>
-										<span
-											class="rounded bg-muted px-2 py-0.5 text-[11px] font-medium uppercase text-muted-foreground"
+							<h2 class="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
+								<User class="h-5 w-5 text-primary" />
+								Authors & Contributors ({titleDetail.contributors.length})
+							</h2>
+
+							<div class="space-y-4">
+								{#each titleDetail.contributors as contrib (contrib.id)}
+									<div
+										class="flex items-start gap-3 rounded-lg border border-border/80 bg-background/50 p-4 transition-all hover:border-primary/40"
+									>
+										<div
+											class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary font-bold text-sm"
 										>
-											{contrib.role}
-										</span>
+											{contrib.name.charAt(0).toUpperCase()}
+										</div>
+
+										<div class="flex-1 space-y-1">
+											<div class="flex items-center justify-between">
+												<h3 class="text-sm font-semibold text-foreground">{contrib.name}</h3>
+												<span
+													class="rounded bg-muted px-2 py-0.5 text-[11px] font-medium uppercase text-muted-foreground"
+												>
+													{contrib.role}
+												</span>
+											</div>
+
+											{#if contrib.bio}
+												<p class="text-xs text-muted-foreground leading-relaxed">{contrib.bio}</p>
+											{:else}
+												<p class="text-xs text-muted-foreground/70 italic">
+													Contributor to this catalog edition.
+												</p>
+											{/if}
+										</div>
 									</div>
-									{#if contrib.bio}
-										<p class="mt-1 line-clamp-2 text-xs text-muted-foreground">{contrib.bio}</p>
-									{/if}
-								</div>
-							{/each}
+								{/each}
+							</div>
 						</div>
-					</section>
-				{/if}
+					{/if}
+				</div>
 			</div>
 		{/if}
 	</main>
