@@ -228,172 +228,200 @@
 				</div>
 			</div>
 		{:else if titleDetail}
-			<!-- Book Hero Header -->
-			<div class="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
+			<div class="lg:grid lg:grid-cols-12 lg:items-start lg:gap-8">
+				<!-- Left Sidebar: Cover Artwork & Quick Metadata (Desktop Sticky) -->
 				<div
-					class="mx-auto sm:mx-0 flex h-56 w-40 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl border border-border bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-4 text-center text-white shadow-md"
+					class="flex flex-col items-center space-y-6 sm:items-start lg:sticky lg:top-20 lg:col-span-4 xl:col-span-3"
 				>
-					<span class="text-6xl font-bold">{titleDetail.title.charAt(0).toUpperCase()}</span>
-				</div>
-
-				<div class="flex-1 space-y-2 text-center sm:text-left">
-					<div class="flex items-center justify-center gap-2 sm:justify-start">
-						{#if titleDetail.language}
-							<span
-								class="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary"
-							>
-								<Globe class="h-3 w-3" />
-								{titleDetail.language.toUpperCase()}
-							</span>
-						{/if}
+					<!-- Cover Artwork -->
+					<div
+						class="mx-auto flex aspect-[2/3] w-48 max-w-[280px] flex-col items-center justify-center overflow-hidden rounded-xl border border-border bg-gradient-to-br from-[#0D5C63] to-[#094a50] p-6 text-center text-white shadow-xl transition-all duration-300 hover:shadow-2xl sm:mx-0 sm:w-56 lg:w-full"
+					>
+						<span class="text-7xl font-bold lg:text-8xl"
+							>{titleDetail.title.charAt(0).toUpperCase()}</span
+						>
 					</div>
 
-					<h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-						{titleDetail.title}
-					</h1>
-
-					{#if authorNames}
-						<p class="text-base font-semibold text-foreground/90 sm:text-lg">
-							by <span class="text-primary">{authorNames}</span>
-						</p>
-					{/if}
-
-					{#if titleDetail.description}
-						<p class="pt-2 text-sm leading-relaxed text-foreground/90">
-							{titleDetail.description}
-						</p>
-					{/if}
-
-					<!-- Price Tag & Purchasing Action -->
-					<div
-						class="mt-4 flex flex-col items-center gap-3 pt-2 sm:flex-row sm:items-center sm:justify-start sm:gap-4"
-					>
-						<div class="flex items-baseline gap-2 text-center sm:text-left">
-							<span class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-								{heroPrice}
-							</span>
-							<span class="text-xs font-medium text-muted-foreground">
-								(Digital EPUB · DRM-Free)
+					<!-- Quick Metadata Badges & Privacy Card -->
+					<div class="w-full space-y-4">
+						<div class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+							{#if titleDetail.language}
+								<span
+									class="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+								>
+									<Globe class="h-3.5 w-3.5" />
+									{titleDetail.language.toUpperCase()}
+								</span>
+							{/if}
+							<span
+								class="inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400"
+							>
+								<CheckCircle2 class="h-3.5 w-3.5" />
+								DRM-Free EPUB
 							</span>
 						</div>
 
-						<Button class="w-full cursor-pointer gap-2 bg-[#0D5C63] text-white hover:bg-[#094a50] sm:w-auto">
-							<ShoppingBag class="h-4 w-4" />
-							Buy Now
-						</Button>
+						<!-- Privacy & Local-First Notice -->
+						<div class="rounded-xl border border-border bg-muted/40 p-4">
+							<div class="flex items-start gap-3">
+								<ShieldCheck class="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+								<div class="text-xs text-muted-foreground">
+									<h3 class="mb-0.5 text-sm font-semibold text-foreground">
+										Local-First Reader
+									</h3>
+									<p>
+										Granthalay preserves your privacy. Personal EPUB imports, bookmarks,
+										highlights, and history stay exclusively on your local device.
+									</p>
+								</div>
+							</div>
+						</div>
 					</div>
+				</div>
+
+				<!-- Right Main Column: Title, Author, Description, Price Bar, Contributors, Editions -->
+				<div class="mt-6 space-y-8 lg:col-span-8 lg:mt-0 xl:col-span-9">
+					<!-- Title & Author Header -->
+					<div class="space-y-2 text-center sm:text-left">
+						<h1 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+							{titleDetail.title}
+						</h1>
+
+						{#if authorNames}
+							<p class="text-lg font-semibold text-foreground/90 sm:text-xl">
+								by <span class="text-primary">{authorNames}</span>
+							</p>
+						{/if}
+					</div>
+
+					<!-- Synopsis / Description -->
+					{#if titleDetail.description}
+						<div class="border-t border-border pt-4">
+							<h2 class="mb-2 text-base font-semibold text-foreground">Synopsis</h2>
+							<p class="text-sm leading-relaxed text-foreground/90 sm:text-base">
+								{titleDetail.description}
+							</p>
+						</div>
+					{/if}
+
+					<!-- Price & Purchase Action -->
+					<div class="border-t border-border pt-4">
+						<div
+							class="flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:justify-start sm:gap-6"
+						>
+							<div class="flex items-baseline gap-2 text-center sm:text-left">
+								<span class="text-3xl font-bold tracking-tight text-foreground lg:text-4xl">
+									{heroPrice}
+								</span>
+								<span class="text-xs font-medium text-muted-foreground">
+									(Digital EPUB · DRM-Free)
+								</span>
+							</div>
+
+							<Button
+								size="lg"
+								class="w-full cursor-pointer gap-2 bg-[#0D5C63] text-white hover:bg-[#094a50] sm:w-auto"
+							>
+								<ShoppingBag class="h-5 w-5" />
+								Buy Now
+							</Button>
+						</div>
+					</div>
+
+					<!-- Contributors Section -->
+					{#if titleDetail.contributors && titleDetail.contributors.length > 0}
+						<section class="border-t border-border pt-6">
+							<h2 class="mb-4 flex items-center gap-2 text-lg font-semibold text-foreground">
+								<User class="h-5 w-5 text-primary" />
+								Contributors ({titleDetail.contributors.length})
+							</h2>
+							<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4">
+								{#each titleDetail.contributors as contrib (contrib.id)}
+									<div class="rounded-lg border border-border bg-card p-3.5 shadow-xs">
+										<div class="flex items-center justify-between">
+											<h3 class="text-sm font-semibold text-foreground">{contrib.name}</h3>
+											<span
+												class="rounded bg-muted px-2 py-0.5 text-[11px] font-medium uppercase text-muted-foreground"
+											>
+												{contrib.role}
+											</span>
+										</div>
+										{#if contrib.bio}
+											<p class="mt-1 line-clamp-2 text-xs text-muted-foreground">{contrib.bio}</p>
+										{/if}
+									</div>
+								{/each}
+							</div>
+						</section>
+					{/if}
+
+					<!-- Available Editions Section -->
+					{#if titleDetail.editions && titleDetail.editions.length > 0}
+						<section class="border-t border-border pt-6">
+							<h2 class="mb-4 flex items-center gap-2 text-lg font-semibold text-foreground">
+								<Tag class="h-5 w-5 text-primary" />
+								Available Editions ({titleDetail.editions.length})
+							</h2>
+
+							<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4">
+								{#each titleDetail.editions as ed (ed.id)}
+									<div
+										class="flex flex-col justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-xs transition-shadow hover:shadow-md"
+									>
+										<div class="space-y-2">
+											<div class="flex flex-wrap items-center gap-2">
+												<span class="font-bold text-foreground">{ed.format}</span>
+												<span
+													class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary"
+												>
+													Edition #{ed.editionNumber}
+												</span>
+												<span
+													class="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400"
+												>
+													DRM-Free
+												</span>
+											</div>
+
+											{#if ed.publishedDate}
+												<p class="flex items-center gap-1.5 text-xs text-muted-foreground">
+													<Calendar class="h-3.5 w-3.5 text-muted-foreground/70" />
+													Published {ed.publishedDate}
+												</p>
+											{/if}
+
+											{#if ed.isbn}
+												<p class="font-mono text-[11px] text-muted-foreground/70">
+													ISBN {ed.isbn}
+												</p>
+											{/if}
+										</div>
+
+										<div class="flex items-center justify-between border-t border-border/50 pt-3">
+											{#if ed.prices && ed.prices.length > 0}
+												<div>
+													{#each ed.prices as price (price.currency + price.territory)}
+														<div class="text-lg font-bold tracking-tight text-foreground">
+															{formatPrice(price.amountInCents, price.currency)}
+														</div>
+														<span class="text-[10px] uppercase text-muted-foreground"
+															>{price.territory}</span
+														>
+													{/each}
+												</div>
+											{/if}
+
+											<Button size="sm" class="cursor-pointer bg-[#0D5C63] text-white hover:bg-[#094a50]">
+												Get Edition
+											</Button>
+										</div>
+									</div>
+								{/each}
+							</div>
+						</section>
+					{/if}
 				</div>
 			</div>
-
-			<!-- Contributors Section -->
-			{#if titleDetail.contributors && titleDetail.contributors.length > 0}
-				<section class="mt-8 border-t border-border pt-6">
-					<h2 class="mb-4 flex items-center gap-2 text-lg font-semibold text-foreground">
-						<User class="h-5 w-5 text-primary" />
-						Contributors
-					</h2>
-					<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
-						{#each titleDetail.contributors as contrib (contrib.id)}
-							<div class="rounded-lg border border-border bg-card p-3 shadow-sm">
-								<div class="flex items-center justify-between">
-									<h3 class="text-sm font-semibold text-foreground">{contrib.name}</h3>
-									<span
-										class="rounded bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground uppercase"
-									>
-										{contrib.role}
-									</span>
-								</div>
-								{#if contrib.bio}
-									<p class="mt-1 line-clamp-2 text-xs text-muted-foreground">{contrib.bio}</p>
-								{/if}
-							</div>
-						{/each}
-					</div>
-				</section>
-			{/if}
-
-			<!-- Available Editions Section -->
-			{#if titleDetail.editions && titleDetail.editions.length > 0}
-				<section class="mt-8 border-t border-border pt-6">
-					<h2 class="mb-4 flex items-center gap-2 text-lg font-semibold text-foreground">
-						<Tag class="h-5 w-5 text-primary" />
-						Available Editions ({titleDetail.editions.length})
-					</h2>
-
-					<div class="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
-						{#each titleDetail.editions as ed (ed.id)}
-							<div
-								class="flex flex-col justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-xs transition-shadow hover:shadow-md"
-							>
-								<div class="space-y-2">
-									<div class="flex flex-wrap items-center gap-2">
-										<span class="font-bold text-foreground">{ed.format}</span>
-										<span
-											class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary"
-										>
-											Edition #{ed.editionNumber}
-										</span>
-										<span
-											class="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400"
-										>
-											DRM-Free
-										</span>
-									</div>
-
-									{#if ed.publishedDate}
-										<p class="flex items-center gap-1.5 text-xs text-muted-foreground">
-											<Calendar class="h-3.5 w-3.5 text-muted-foreground/70" />
-											Published {ed.publishedDate}
-										</p>
-									{/if}
-
-									{#if ed.isbn}
-										<p class="font-mono text-[11px] text-muted-foreground/70">
-											ISBN {ed.isbn}
-										</p>
-									{/if}
-								</div>
-
-								<div class="flex items-center justify-between border-t border-border/50 pt-3">
-									{#if ed.prices && ed.prices.length > 0}
-										<div>
-											{#each ed.prices as price (price.currency + price.territory)}
-												<div class="text-lg font-bold tracking-tight text-foreground">
-													{formatPrice(price.amountInCents, price.currency)}
-												</div>
-												<span class="text-[10px] text-muted-foreground uppercase"
-													>{price.territory}</span
-												>
-											{/each}
-										</div>
-									{/if}
-
-									<Button size="sm" class="cursor-pointer bg-[#0D5C63] text-white hover:bg-[#094a50]">
-										Get Edition
-									</Button>
-								</div>
-							</div>
-						{/each}
-					</div>
-				</section>
-			{/if}
-
-			<!-- Privacy & Local-First Reader Notice -->
-			<section class="mt-8 rounded-xl border border-border bg-muted/40 p-4">
-				<div class="flex items-start gap-3">
-					<ShieldCheck class="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
-					<div class="text-xs text-muted-foreground">
-						<h3 class="mb-0.5 text-sm font-semibold text-foreground">
-							Local-First Anonymous Reading
-						</h3>
-						<p>
-							Granthalay preserves your privacy. Personal EPUB imports, bookmarks, highlights, and
-							reading history stay exclusively on your local device.
-						</p>
-					</div>
-				</div>
-			</section>
-		{/if}
 	</main>
 
 	<LibraryBottomBar active="store" />
