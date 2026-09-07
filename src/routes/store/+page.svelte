@@ -261,7 +261,6 @@
 					<StoreBookCard
 						slug={item.slug}
 						title={item.title}
-						subtitle={item.subtitle}
 						author={item.primaryAuthorName}
 						language={item.language}
 						price={item.price}
