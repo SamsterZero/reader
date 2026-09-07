@@ -12,6 +12,8 @@
 	} from 'lucide-svelte';
 	import TopBar from '$lib/components/library/TopBar.svelte';
 	import LibraryBottomBar from '$lib/components/library/LibraryBottomBar.svelte';
+	import StoreBookCard from '$lib/components/library/StoreBookCard.svelte';
+	import { AspectRatio } from '$lib/components/ui/aspect-ratio';
 	import { Button } from '$lib/components/ui/button';
 	import { fetchCatalogTitles, type CatalogTitleSummary } from '$lib/api/catalog';
 	import { ApiOfflineError } from '$lib/api/client';
@@ -235,12 +237,15 @@
 
 		<!-- Content Listing -->
 		{#if loading}
-			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-				{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as i (i)}
-					<div class="animate-pulse rounded-xl border border-border bg-card p-4 shadow-sm">
-						<div class="h-32 w-full rounded-lg bg-muted"></div>
-						<div class="mt-4 h-4 w-3/4 rounded bg-muted"></div>
-						<div class="mt-2 h-3 w-1/2 rounded bg-muted"></div>
+			<div
+				class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+			>
+				{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as i (i)}
+					<div class="group">
+						<AspectRatio
+							ratio={2 / 3}
+							class="relative animate-pulse overflow-hidden rounded-xl bg-muted shadow-xs"
+						/>
 					</div>
 				{/each}
 			</div>
@@ -256,51 +261,20 @@
 				</p>
 			</div>
 		{:else if titles.length > 0}
-			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+			<div
+				class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+			>
 				{#each titles as item (item.id)}
-					<a
-						href="/store/{item.slug}"
-						class="group flex flex-col justify-between rounded-xl border border-border bg-card p-4 shadow-sm transition-all hover:border-primary/50 hover:shadow-md focus-visible:outline-2 focus-visible:outline-primary"
-					>
-						<div>
-							<!-- Decorative Cover Badge -->
-							<div
-								class="relative flex h-36 w-full items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-primary/10 via-primary/5 to-muted p-4"
-							>
-								<BookOpen
-									class="h-12 w-12 text-primary/70 transition-transform group-hover:scale-105"
-									aria-hidden="true"
-								/>
-								{#if item.language}
-									<span
-										class="absolute top-2 right-2 flex items-center gap-1 rounded-full border border-border/50 bg-background/80 px-2 py-0.5 text-[11px] font-medium text-foreground backdrop-blur"
-									>
-										<Tag class="h-3 w-3" aria-hidden="true" />
-										{item.language.toUpperCase()}
-									</span>
-								{/if}
-							</div>
-
-							<h2
-								class="mt-3 line-clamp-1 text-base font-semibold text-foreground transition-colors group-hover:text-primary"
-							>
-								{item.title}
-							</h2>
-							{#if item.subtitle}
-								<p class="line-clamp-1 text-xs text-muted-foreground">{item.subtitle}</p>
-							{/if}
-						</div>
-
-						<div
-							class="mt-4 flex items-center justify-between border-t border-border/60 pt-3 text-xs text-muted-foreground"
-						>
-							<span>{item.primaryAuthorName || 'Unknown Author'}</span>
-							<span class="font-medium text-primary group-hover:underline">View details &rarr;</span
-							>
-						</div>
-					</a>
+					<StoreBookCard
+						slug={item.slug}
+						title={item.title}
+						subtitle={item.subtitle}
+						author={item.primaryAuthorName}
+						language={item.language}
+					/>
 				{/each}
 			</div>
+		{/if}
 
 			<!-- Pagination Bar -->
 			{#if totalPages > 1}
@@ -336,7 +310,6 @@
 					</div>
 				</div>
 			{/if}
-		{/if}
 	</main>
 
 	<LibraryBottomBar active="store" />
