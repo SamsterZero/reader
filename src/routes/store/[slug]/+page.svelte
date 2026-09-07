@@ -243,10 +243,6 @@
 						</p>
 					{/if}
 
-					{#if titleDetail.subtitle}
-						<p class="text-sm text-muted-foreground">{titleDetail.subtitle}</p>
-					{/if}
-
 					{#if titleDetail.description}
 						<p class="pt-2 text-sm leading-relaxed text-foreground/90">
 							{titleDetail.description}
