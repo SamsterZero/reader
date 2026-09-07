@@ -283,27 +283,25 @@
 					{/if}
 
 					<!-- Price & Purchase Action -->
-					<div class="border-t border-border pt-4">
-						<div
-							class="flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:justify-start sm:gap-6"
-						>
-							<div class="flex items-baseline gap-2 text-center sm:text-left">
-								<span class="text-3xl font-bold tracking-tight text-foreground lg:text-4xl">
-									{heroPrice}
-								</span>
-								<span class="text-xs font-medium text-muted-foreground">
-									(Digital EPUB · DRM-Free)
-								</span>
-							</div>
-
-							<Button
-								size="lg"
-								class="w-full cursor-pointer gap-2 bg-[#0D5C63] text-white hover:bg-[#094a50] sm:w-auto"
-							>
-								<ShoppingBag class="h-5 w-5" />
-								Buy Now
-							</Button>
+					<div
+						class="flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:justify-start sm:gap-6"
+					>
+						<div class="flex items-baseline gap-2 text-center sm:text-left">
+							<span class="text-3xl font-bold tracking-tight text-foreground lg:text-4xl">
+								{heroPrice}
+							</span>
+							<span class="text-xs font-medium text-muted-foreground">
+								(Digital EPUB · DRM-Free)
+							</span>
 						</div>
+
+						<Button
+							size="lg"
+							class="w-full cursor-pointer gap-2 bg-[#0D5C63] text-white hover:bg-[#094a50] sm:w-auto"
+						>
+							<ShoppingBag class="h-5 w-5" />
+							Buy Now
+						</Button>
 					</div>
 
 					<!-- Contributors Section -->
