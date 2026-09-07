@@ -264,18 +264,20 @@
 						</p>
 					{/if}
 
-					<!-- Price Tag & Purchasing Action Bar -->
+					<!-- Price Tag & Purchasing Action -->
 					<div
-						class="mt-4 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-xs"
+						class="mt-4 flex flex-col items-center gap-3 pt-2 sm:flex-row sm:items-center sm:justify-start sm:gap-4"
 					>
-						<div>
-							<div class="text-2xl font-bold tracking-tight text-foreground">
+						<div class="flex items-baseline gap-2 text-center sm:text-left">
+							<span class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
 								{heroPrice}
-							</div>
-							<p class="text-xs text-muted-foreground">Digital EPUB · DRM-Free · Instant Access</p>
+							</span>
+							<span class="text-xs font-medium text-muted-foreground">
+								(Digital EPUB · DRM-Free)
+							</span>
 						</div>
 
-						<Button class="cursor-pointer gap-2 bg-[#0D5C63] text-white hover:bg-[#094a50]">
+						<Button class="w-full cursor-pointer gap-2 bg-[#0D5C63] text-white hover:bg-[#094a50] sm:w-auto">
 							<ShoppingBag class="h-4 w-4" />
 							Buy Now ({heroPrice})
 						</Button>
