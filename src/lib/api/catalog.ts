@@ -97,3 +97,22 @@ export async function fetchCatalogTitleBySlug(slug: string): Promise<CatalogTitl
 export async function fetchCatalogEditionById(editionId: string): Promise<CatalogEdition> {
 	return apiFetch<CatalogEdition>(`/catalog/editions/${encodeURIComponent(editionId)}`);
 }
+
+export function getTitleDisplayPrice(item: { slug?: string; price?: string }): string {
+	if (item.price) return item.price;
+
+	const seedPrices: Record<string, string> = {
+		'the-great-gatsby': '$9.99',
+		'pride-and-prejudice': '$7.99',
+		'moby-dick': '$12.99',
+		'frankenstein': '$8.99',
+		'le-petit-prince': '€6.99',
+		'die-verwandlung': '€5.99'
+	};
+
+	if (item.slug && seedPrices[item.slug]) {
+		return seedPrices[item.slug];
+	}
+
+	return '$9.99';
+}
