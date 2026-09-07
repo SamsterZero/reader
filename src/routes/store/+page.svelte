@@ -7,8 +7,7 @@
 		WifiOff,
 		RefreshCw,
 		ChevronLeft,
-		ChevronRight,
-		Tag
+		ChevronRight
 	} from 'lucide-svelte';
 	import TopBar from '$lib/components/library/TopBar.svelte';
 	import LibraryBottomBar from '$lib/components/library/LibraryBottomBar.svelte';

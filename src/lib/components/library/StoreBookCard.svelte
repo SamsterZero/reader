@@ -5,14 +5,13 @@
 	interface Props {
 		slug: string;
 		title: string;
-		subtitle?: string;
 		author?: string;
 		language?: string;
 		cover?: string | Blob | null;
 		price?: string;
 	}
 
-	let { slug, title, subtitle, author, language, cover, price }: Props = $props();
+	let { slug, title, author, language, cover, price }: Props = $props();
 	let coverUrl = $state<string | null>(null);
 
 	const displayPrice = $derived(getTitleDisplayPrice({ slug, price }));
